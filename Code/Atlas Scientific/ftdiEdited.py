@@ -76,12 +76,13 @@ def get_ftdi_device_list():
 
     for device in Driver().list_devices():
         # Check if the element is bytes before decoding
-        dev_info = map(lambda x: x.decode('latin1') if isinstance(x, bytes) else x, device)
+        dev_info = list(map(lambda x: x.decode('latin1') if isinstance(x, bytes) else x, device))
         if len(dev_info) == 3:
             vendor, product, serial = dev_info
             dev_list.append(f"{vendor}:{product}:{serial}")
 
     return dev_list
+
 
 
 if __name__ == '__main__':
