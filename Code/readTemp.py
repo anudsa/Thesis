@@ -34,4 +34,4 @@ try:
 #Ctrl + c triggers this interrupt
 except KeyboardInterrupt:
     print("Finalizado")
-    GPIO.cleanup()
+
