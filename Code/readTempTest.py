@@ -1,6 +1,4 @@
 # read the ds18b20 one-wire temperature sensor
-# 
-
 import RPi.GPIO as GPIO
 import os
 import re
