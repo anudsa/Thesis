@@ -1,108 +1,76 @@
 import serial
 import sys
 import time
-import string 
-from serial import SerialException
 
-def read_line():
-	lsl = len(b'\r')
-	line_buffer = []
-	while True:
-		next_char = ser.read(1)
-		if next_char == b'':
-			break
-		line_buffer.append(next_char)
-		if (len(line_buffer) >= lsl and
-				line_buffer[-lsl:] == [b'\r']):
-			break
-	return b''.join(line_buffer)
-	
-def read_lines():
-	lines = []
-	try:
-		while True:
-			line = read_line()
-			if not line:
-				break
-				ser.flush_input()
-			lines.append(line)
-		return lines
-	
-	except SerialException as e:
-		print( "Error, ", e)
-		return None	
+def read_line(sensor):
+    # Function to read a line from the sensor
+    lsl = len(b'\r')
+    line_buffer = []
+    while True:
+        next_char = sensor.read(1)
+        if next_char == b'':
+            break
+        line_buffer.append(next_char)
+        if len(line_buffer) >= lsl and line_buffer[-lsl:] == [b'\r']:
+            break
+    return b''.join(line_buffer)
 
-def send_cmd(cmd):
-	buf = cmd + "\r"     	# add carriage return
-	try:
-		ser.write(buf.encode('utf-8'))
-		return True
-	except SerialException as e:
-		print ("Error, ", e)
-		return None
-			
+def read_lines(sensor):
+    # Function to read multiple lines from the sensor
+    lines = []
+    try:
+        while True:
+            line = read_line(sensor)
+            if not line:
+                break
+            sensor.flushInput()
+            lines.append(line)
+        return lines
+    except serial.SerialException as e:
+        print("Error: ", e)
+        return None
+
+def send_cmd(sensor, cmd):
+    # Function to send a command to the Atlas Sensor
+    buf = cmd + "\r"
+    try:
+        sensor.write(buf.encode('utf-8'))
+        return True
+    except serial.SerialException as e:
+        print("Error: ", e)
+        return None
+
+def poll_sensors(sensor1, sensor2, usbport1, usbport2):
+    print("Polling sensors connected to {} and {}: ".format(usbport1, usbport2))
+
+    while True:
+        send_cmd(sensor1, "R")
+        lines1 = read_lines(sensor1)
+        for i in range(len(lines1)):
+            if lines1[i][0] != b'*'[0]:
+                print("Response from {}: {}".format(usbport1, lines1[i].decode('utf-8')))
+
+        send_cmd(sensor2, "R")
+        lines2 = read_lines(sensor2)
+        for i in range(len(lines2)):
+            if lines2[i][0] != b'*'[0]:
+                print("Response from {}: {}".format(usbport2, lines2[i].decode('utf-8')))
+
+        time.sleep(1)  # Adjust as needed
+
 if __name__ == "__main__":
-	
-	real_raw_input = vars(__builtins__).get('raw_input', input) # used to find the correct function for python2/3
-	
-	print("\nWelcome to the Atlas Scientific Raspberry Pi UART example.\n")
-	print("    Any commands entered are passed to the board via UART except:")
-	print("    Poll,xx.x command continuously polls the board every xx.x seconds")
-	print("    Pressing ctrl-c will stop the polling\n")
-	print("    Press enter to receive all data in buffer (for continuous mode) \n")
+    usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']  # A list with the USB ports is created
 
-	# to get a list of ports use the command: 
-	# python -m serial.tools.list_ports
-	# in the terminal
-	usbports= ['/dev/ttyUSB0','/dev/ttyUSB1']  # A list with the usb ports is created
+    try:
+        sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[0], e))
+        sys.exit(1)
 
+    try:
+        sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[1], e))
+        sys.exit(1)
 
-
-	print( "Opening serial port now...")
-
-	try:
-		ser = serial.Serial(usbport, 9600, timeout=0)
-	except serial.SerialException as e:
-		print( "Error, ", e)
-		sys.exit(0)
-
-	while True:
-		input_val = real_raw_input("Enter command: ")
-
-		# continuous polling command automatically polls the board
-		if input_val.upper().startswith("POLL"):
-			delaytime = float(input_val.split(',')[1])
-	
-			send_cmd("C,0") # turn off continuous mode
-			#clear all previous data
-			time.sleep(1)
-			ser.flush()
-			
-			# get the information of the board you're polling
-			print("Polling sensor every %0.2f seconds, press ctrl-c to stop polling" % delaytime)
-	
-			try:
-				while True:
-					send_cmd("R")
-					lines = read_lines()
-					for i in range(len(lines)):
-						# print lines[i]
-						if lines[i][0] != b'*'[0]:
-							print( "Response: " + lines[i].decode('utf-8'))
-					time.sleep(delaytime)
-
-			except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
-				print("Continuous polling stopped")
-	
-		# if not a special keyword, pass commands straight to board
-		else:
-			if len(input_val) == 0:
-				lines = read_lines()
-				for i in range(len(lines)):
-					print( lines[i].decode('utf-8'))
-			else:
-				send_cmd(input_val)
-				time.sleep(1.3)
-				lines = read_lines()
-				for i in range(len(lines)):
-					print( lines[i].decode('utf-8'))
+    poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
