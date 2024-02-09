@@ -1,8 +1,6 @@
 import serial
 import sys
 import time
-import string 
-from serial import SerialException
 
 def read_line(sensor):
     # Function to read a line from the sensor
@@ -25,7 +23,7 @@ def read_lines(sensor):
             line = read_line(sensor)
             if not line:
                 break
-            sensor.flush_input()
+            sensor.flushInput()  # Use flushInput instead of flush_input
             lines.append(line)
         return lines
     except serial.SerialException as e:
