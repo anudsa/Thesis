@@ -44,14 +44,14 @@ new_row_sample_data = {
     'tiempo': datetime.now(),
     'temperatura': 27.5,
     'pH': 6.8,
-    'conductividad_eléctrica': 600.0,
-    'oxígeno_disuelto': 7.8
+    'conductividad_electrica': 600.0,
+    'oxigeno_disuelto': 7.8
 }
 # Create the INSERT query
-insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_eléctrica, oxígeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
+insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
 
 # Execute the INSERT query with the values
-cursor.execute(insert_query, (new_row_sample_data['tiempo'], new_row_sample_data['temperatura'], new_row_sample_data['pH'], new_row_sample_data['conductividad_eléctrica'], new_row_sample_data['oxígeno_disuelto']))
+cursor.execute(insert_query, (new_row_sample_data['tiempo'], new_row_sample_data['temperatura'], new_row_sample_data['pH'], new_row_sample_data['conductividad_electrica'], new_row_sample_data['oxigeno_disuelto']))
 
 # Commit the changes to the database
 mysql_db.commit()

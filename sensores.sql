@@ -27,8 +27,8 @@ CREATE TABLE `lecturas` (
   `tiempo` timestamp NULL DEFAULT NULL,
   `temperatura` decimal(5,2) DEFAULT NULL,
   `pH` decimal(5,2) DEFAULT NULL,
-  `conductividad_eléctrica` decimal(5,2) DEFAULT NULL,
-  `oxígeno_disuelto` decimal(5,2) DEFAULT NULL,
+  `conductividad_electrica` decimal(5,2) DEFAULT NULL,
+  `oxigeno_disuelto` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

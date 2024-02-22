@@ -17,8 +17,8 @@ sampleData = {
     'tiempo': datetime.now(),
     'temperatura': 20.5,
     'pH': 4.8,
-    'conductividad_eléctrica': 330.0,
-    'oxígeno_disuelto': 2
+    'conductividad_electrica': 330.0,
+    'oxigeno_disuelto': 2
 }
 
 #Function to print databases list
@@ -47,9 +47,9 @@ def printAllLectures():
 #Function to add data
 def addData(Data):
     # Create the INSERT query
-    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_eléctrica, oxígeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
     # Execute the INSERT query with the values
-    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_eléctrica'], Data['oxígeno_disuelto']))
+    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['oxigeno_disuelto']))
     # Commit the changes to the database
     mysql_db.commit()
 

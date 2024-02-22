@@ -4,6 +4,15 @@ import time
 import os
 import re
 import RPi.GPIO as GPIO
+import mysql.connector
+from datetime import datetime
+#Database connection
+mysql_db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="Pa$$w0rd",
+    database="Sensores"
+)
 
 #function to get temperatures
 def getTemperatures():
@@ -82,7 +91,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
                 print("Response from {}: {}".format(usbport2, lines2[i].decode('utf-8')))
 
         time.sleep(1)  # Adjust as needed
-
+#Main script
 if __name__ == "__main__":
     usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
 
@@ -103,15 +112,8 @@ if __name__ == "__main__":
 #############################
     
 #Script to test the python-databse connection
-import mysql.connector
-from datetime import datetime
 
-mysql_db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Pa$$w0rd",
-    database="Sensores"
-)
+
 
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
@@ -121,18 +123,9 @@ sampleData = {
     'tiempo': datetime.now(),
     'temperatura': 20.5,
     'pH': 4.8,
-    'conductividad_eléctrica': 330.0,
-    'oxígeno_disuelto': 2
+    'conductividad_electrica': 330.0,
+    'oxigneo_disuelto': 2
 }
-
-#Function to print databases list
-def printDatabases():
-    cursor.execute("show databases")
-    # Fetch all the rows
-    databases = cursor.fetchall()
-    # Print the list of databases
-    for database in databases:
-        print(database[0])
 
 #Function to print all date from the table lecturas
 def printAllLectures():
@@ -151,9 +144,9 @@ def printAllLectures():
 #Function to add data
 def addData(Data):
     # Create the INSERT query
-    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_eléctrica, oxígeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigneo_disuelto) VALUES (%s, %s, %s, %s, %s)"
     # Execute the INSERT query with the values
-    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_eléctrica'], Data['oxígeno_disuelto']))
+    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['oxigneo_disuelto']))
     # Commit the changes to the database
     mysql_db.commit()
 
@@ -178,8 +171,6 @@ def closeConnection():
     cursor.close()
     mysql_db.close()
 
-print("Printing all databases with python:")
-printDatabases()
 print("Printing all data from table with python:")
 printAllLectures()
 
@@ -188,12 +179,6 @@ if choice == "1" :
     print("adding data: ")
     addData(sampleData)
     printAllLectures()
-elif choice == "2":
-    print("removing data: ")
-    removeLastRow()
-    printAllLectures()
-elif choice=="3":
-    row_id=input("Enter the row id:")
-    removeRowById(row_id)
-    printAllLectures()
-    print(f"Row with ID {row_id} removed")
+
+
+#This script should only save the data from the sensors in the database, the other one retrieves it and manipulates it.

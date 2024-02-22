@@ -13,7 +13,7 @@ cursor = mysql_db.cursor()
 
 def getVariables():
     # Execute the SELECT query
-    cursor.execute("SELECT tiempo,temperatura, pH, conductividad_eléctrica, oxígeno_disuelto FROM lecturas")
+    cursor.execute("SELECT tiempo,temperatura, pH, conductividad_electrica, oxigeno_disuelto FROM lecturas")
     # Fetch all the rows
     rows = cursor.fetchall()
     #list comprehension to retrieve values
