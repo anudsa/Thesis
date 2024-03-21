@@ -69,39 +69,47 @@ def send_cmd(sensor, cmd):
         return None
 
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
-    print("Polling sensors connected to {} and {}: ".format(usbport1, usbport2))
+    temp = None
+    conductividad = None
+    potencialHidrogeno = None
+
+    print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
 
     while True:
         one_wire_temps = getTemperatures()
 
         if one_wire_temps:
-            print("Temperature from One-Wire Sensor: {:.2f}°C".format(one_wire_temps[0]))
+            temp=one_wire_temps[0]
+            print("Temperatura: {:.2f}°C".format(temp))
         else:
-            print("Unable to read temperature from One-Wire Sensor.")
+            print("Error al leer la temperatura")
 
         send_cmd(sensor1, "R")
         lines1 = read_lines(sensor1)
         for i in range(len(lines1)):
             if lines1[i][0] != b'*'[0]:
-                print("Response from {}: {}".format(usbport1, lines1[i].decode('utf-8')))
+                conductividad=lines1[i].decode('utf-8')
+                print("Conductividad Eléctrica: {}".format(conductividad))
 
         send_cmd(sensor2, "R")
         lines2 = read_lines(sensor2)
         for i in range(len(lines2)):
             if lines2[i][0] != b'*'[0]:
-                print("Response from {}: {}".format(usbport2, lines2[i].decode('utf-8')))
-        #After each reading, the data is saved in the database
-        addData(sampleData)
-        time.sleep(1)  # Adjust as needed
+                potencialHidrogeno=lines2[i].decode('utf-8')
+                print("pH: {}".format(potencialHidrogeno))
 
-#Sample data for testing purposes
-sampleData = {
-    'tiempo': datetime.now(),
-    'temperatura': 20.5,
-    'pH': 4.8,
-    'conductividad_electrica': 330.0,
-    'oxigeno_disuelto': 2
-}
+        #Después de tomar todas las mediciones, se guardan en un diccionario:
+        mediciones = {
+            'tiempo': datetime.now(),
+            'temperatura': temp,
+            'conductividad_electrica': conductividad,
+            'pH': potencialHidrogeno,
+            'oxigeno_disuelto': 6 
+        }
+        #Se añaden a la base de datos
+        addData(mediciones)
+        time.sleep(1)  # Tiempo de musestreo
+
 
 #Function to print all date from the table lecturas
 def printAllLectures():
@@ -148,11 +156,11 @@ def closeConnection():
     mysql_db.close()
 
 
-
 #Main script
 if __name__ == "__main__":
     usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
-
+    
+    #Se abren los puertos serial
     try:
         sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
     except serial.SerialException as e:
@@ -165,6 +173,10 @@ if __name__ == "__main__":
         print("Error opening serial port {}: {}".format(usbports[1], e))
         sys.exit(1)
 
-    poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-    print("Printing all data from table with python:")
-    printAllLectures()
+    try:
+        poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+    except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
+        print("Se han detenido las mediciones.")
+        print("Información almacenada:")
+        printAllLectures()
+        closeConnection()
