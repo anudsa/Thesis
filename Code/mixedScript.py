@@ -13,7 +13,8 @@ mysql_db = mysql.connector.connect(
     password="Pa$$w0rd",
     database="Sensores"
 )
-
+# Create a cursor object to execute SQL queries
+cursor = mysql_db.cursor()
 #function to get temperatures
 def getTemperatures():
     allTemps = list()
@@ -89,34 +90,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         for i in range(len(lines2)):
             if lines2[i][0] != b'*'[0]:
                 print("Response from {}: {}".format(usbport2, lines2[i].decode('utf-8')))
-
+        #After each reading, the data is saved in the database
+        addData(sampleData)
         time.sleep(1)  # Adjust as needed
-#Main script
-if __name__ == "__main__":
-    usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
-
-    try:
-        sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
-    except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[0], e))
-        sys.exit(1)
-
-    try:
-        sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
-    except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[1], e))
-        sys.exit(1)
-
-    poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-
-#############################
-    
-#Script to test the python-databse connection
-
-
-
-# Create a cursor object to execute SQL queries
-cursor = mysql_db.cursor()
 
 #Sample data for testing purposes
 sampleData = {
@@ -171,14 +147,24 @@ def closeConnection():
     cursor.close()
     mysql_db.close()
 
-print("Printing all data from table with python:")
-printAllLectures()
 
-choice= input("type 1 to add data, 2 to remove last row, 3 to remove row by id: ")
-if choice == "1" : 
-    print("adding data: ")
-    addData(sampleData)
+
+#Main script
+if __name__ == "__main__":
+    usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
+
+    try:
+        sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[0], e))
+        sys.exit(1)
+
+    try:
+        sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[1], e))
+        sys.exit(1)
+
+    poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+    print("Printing all data from table with python:")
     printAllLectures()
-
-
-#This script should only save the data from the sensors in the database, the other one retrieves it and manipulates it.
