@@ -100,7 +100,7 @@ sampleData = {
     'temperatura': 20.5,
     'pH': 4.8,
     'conductividad_electrica': 330.0,
-    'oxigneo_disuelto': 2
+    'oxigeno_disuelto': 2
 }
 
 #Function to print all date from the table lecturas
