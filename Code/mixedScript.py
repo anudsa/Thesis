@@ -120,9 +120,9 @@ def printAllLectures():
 #Function to add data
 def addData(Data):
     # Create the INSERT query
-    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigneo_disuelto) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
     # Execute the INSERT query with the values
-    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['oxigneo_disuelto']))
+    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['oxigeno_disuelto']))
     # Commit the changes to the database
     mysql_db.commit()
 
