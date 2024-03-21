@@ -34,7 +34,7 @@ def printVariables():
     print("Ox= ", ox)
 
 def plotVariables():
-    plt.figure()
+    plt.figure(figsize=(12,8))
     plt.subplot(2,2,1)
     plt.scatter(tiempo, temp)
     plt.xlabel("Tiempo")
