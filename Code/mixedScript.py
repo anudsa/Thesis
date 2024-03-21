@@ -6,6 +6,7 @@ import re
 import RPi.GPIO as GPIO
 import mysql.connector
 from datetime import datetime
+import grafica
 #Database connection
 mysql_db = mysql.connector.connect(
     host="localhost",
@@ -158,7 +159,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         }
         addData(mediciones)
         time.sleep(1)  # Tiempo de muestreo  
-        
+
 #Function to print all date from the table lecturas
 def printAllLectures():
     # Execute the SELECT query
@@ -227,4 +228,5 @@ if __name__ == "__main__":
         print("Se han detenido las mediciones.")
         print("Información almacenada:")
         printAllLectures()
+        grafica.plotVariables()
         closeConnection()
