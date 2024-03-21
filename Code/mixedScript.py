@@ -67,19 +67,15 @@ def send_cmd(sensor, cmd):
     except serial.SerialException as e:
         print("Error: ", e)
         return None
-
+    
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
-    temp = 0
-    conductividad = 0
-    potencialHidrogeno = 0
-
     print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
 
     while True:
         one_wire_temps = getTemperatures()
 
         if one_wire_temps:
-            temp=one_wire_temps[0]
+            temp = one_wire_temps[0]
             print("Temperatura: {:.2f}°C".format(temp))
         else:
             print("Error al leer la temperatura")
@@ -88,28 +84,27 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         lines1 = read_lines(sensor1)
         for i in range(len(lines1)):
             if lines1[i][0] != b'*'[0]:
-                conductividad=lines1[i].decode('utf-8')
+                conductividad = float(lines1[i].decode('utf-8'))  #Cast a float
                 print("Conductividad Eléctrica: {}".format(conductividad))
 
         send_cmd(sensor2, "R")
         lines2 = read_lines(sensor2)
         for i in range(len(lines2)):
             if lines2[i][0] != b'*'[0]:
-                potencialHidrogeno=lines2[i].decode('utf-8')
+                potencialHidrogeno = float(lines2[i].decode('utf-8'))  #Cast a float
                 print("pH: {}".format(potencialHidrogeno))
 
-        #Después de tomar todas las mediciones, se guardan en un diccionario:
+        # Después de tomar todas las mediciones, se guardan en un diccionario:
         mediciones = {
             'tiempo': datetime.now(),
             'temperatura': temp,
             'conductividad_electrica': conductividad,
             'pH': potencialHidrogeno,
-            'oxigeno_disuelto': 6 
+            'oxigeno_disuelto': 6  # Assuming you have a default value
         }
-        #Se añaden a la base de datos
+        # Se añaden a la base de datos
         addData(mediciones)
-        time.sleep(1)  # Tiempo de musestreo
-
+        time.sleep(1)  # Tiempo de muestreo
 
 #Function to print all date from the table lecturas
 def printAllLectures():
