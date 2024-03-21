@@ -69,9 +69,9 @@ def send_cmd(sensor, cmd):
         return None
 
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
-    temp = None
-    conductividad = None
-    potencialHidrogeno = None
+    temp = 0
+    conductividad = 0
+    potencialHidrogeno = 0
 
     print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
 
