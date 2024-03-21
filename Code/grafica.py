@@ -60,9 +60,10 @@ def plotVariables():
     plt.title("ox graph")
 
     plt.show()
+    plt.pause(10)
 
 tiempo,temp, pH, EC, ox = getVariables()
 
-printVariables()
-
-plotVariables()
+if __name__ == "__main__":
+    printVariables()
+    plotVariables()
