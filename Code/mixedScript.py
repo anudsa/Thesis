@@ -67,12 +67,13 @@ def send_cmd(sensor, cmd):
     except serial.SerialException as e:
         print("Error: ", e)
         return None
-    
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
-    print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
     temp = 0
     conductividad = 0
     potencialHidrogeno = 0
+
+    print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
+
     while True:
         one_wire_temps = getTemperatures()
 
@@ -84,30 +85,80 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
 
         send_cmd(sensor1, "R")
         lines1 = read_lines(sensor1)
-        for i in range(len(lines1)):
-            if lines1[i][0] != b'*'[0]:
-                conductividad = float(lines1[i].decode('utf-8'))  #Cast a float
-                print("Conductividad Eléctrica: {}".format(conductividad))
+        for line in lines1:
+            if line.startswith(b'OK'):
+                continue
+            elif line.startswith(b'*ER'):
+                print("Comando desconocido en el sensor 1")
+                continue
+            elif line.startswith(b'*OV'):
+                print("Sobrevoltaje en el sensor 1 (VCC>=5.5V)")
+                continue
+            elif line.startswith(b'*UV'):
+                conductividad = conductividad  # Usar valor anterior
+                continue
+            elif line.startswith(b'*RS'):
+                print("Sensor 1 reseteado")
+                continue
+            elif line.startswith(b'*RE'):
+                print("Sensor 1 iniciado")
+                continue
+            elif line.startswith(b'*SL'):
+                print("Sensor 1 entrando en modo de suspensión")
+                continue
+            elif line.startswith(b'*WA'):
+                print("Sensor 1 saliendo del modo de suspensión")
+                continue
+            else:
+                try:
+                    conductividad = float(line.decode('utf-8'))
+                    print("Conductividad Eléctrica: {:.2f}".format(conductividad))
+                except ValueError:
+                    continue
 
         send_cmd(sensor2, "R")
         lines2 = read_lines(sensor2)
-        for i in range(len(lines2)):
-            if lines2[i][0] != b'*'[0]:
-                potencialHidrogeno = float(lines2[i].decode('utf-8'))  #Cast a float
-                print("pH: {}".format(potencialHidrogeno))
+        for line in lines2:
+            if line.startswith(b'OK'):
+                continue
+            elif line.startswith(b'*ER'):
+                print("Comando desconocido en el sensor 2")
+                continue
+            elif line.startswith(b'*OV'):
+                print("Sobrevoltaje en el sensor 2 (VCC>=5.5V)")
+                continue
+            elif line.startswith(b'*UV'):
+                potencialHidrogeno = potencialHidrogeno  # Usar valor anterior
+                continue
+            elif line.startswith(b'*RS'):
+                print("Sensor 2 reseteado")
+                continue
+            elif line.startswith(b'*RE'):
+                print("Sensor 2 iniciado")
+                continue
+            elif line.startswith(b'*SL'):
+                print("Sensor 2 entrando en modo de suspensión")
+                continue
+            elif line.startswith(b'*WA'):
+                print("Sensor 2 saliendo del modo de suspensión")
+                continue
+            else:
+                try:
+                    potencialHidrogeno = float(line.decode('utf-8'))
+                    print("pH: {:.2f}".format(potencialHidrogeno))
+                except ValueError:
+                    continue
 
-        # Después de tomar todas las mediciones, se guardan en un diccionario:
         mediciones = {
             'tiempo': datetime.now(),
             'temperatura': temp,
             'conductividad_electrica': conductividad,
             'pH': potencialHidrogeno,
-            'oxigeno_disuelto': 6  # Assuming you have a default value
+            'oxigeno_disuelto': 6 
         }
-        # Se añaden a la base de datos
         addData(mediciones)
-        time.sleep(1)  # Tiempo de muestreo
-
+        time.sleep(1)  # Tiempo de muestreo  
+        
 #Function to print all date from the table lecturas
 def printAllLectures():
     # Execute the SELECT query
