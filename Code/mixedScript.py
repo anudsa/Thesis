@@ -70,7 +70,9 @@ def send_cmd(sensor, cmd):
     
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
-
+    temp = 0
+    conductividad = 0
+    potencialHidrogeno = 0
     while True:
         one_wire_temps = getTemperatures()
 
