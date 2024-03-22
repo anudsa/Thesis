@@ -163,9 +163,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         #valor de OD de prueba
         oxigenoDisuelto=6
         P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
-        WQI =WQI.calculo(P,W)
-        print(f"índice de calidad de agua: {WQI} ")
-        print(WQI.interpretacion(WQI))
+        ICA =WQI.calculo(P,W)
+        print(f"índice de calidad de agua: {ICA} ")
+        print(WQI.interpretacion(ICA))
         time.sleep(1)  # Tiempo de muestreo  
 
 #Function to print all date from the table lecturas
