@@ -5,7 +5,7 @@
 
 #Datos de prueba
 conductividad=500
-temp=25
+temp=27
 pH=7
 oxigenoDisuelto=6
 
@@ -13,26 +13,29 @@ oxigenoDisuelto=6
 P=[None]*4
 W=[1,2,3,4]
 
-if conductividad < 250 or conductividad > 700:
-    P[1]=2
-else:
-    P[1]=1
 
-if temp < 20 or temp > 25:
-    P[0]=2
-else:
-    P[0]=1
+def parametrizacion(conductividad,temp,pH,oxigenoDisuelto):
+    if conductividad < 250 or conductividad > 700:
+        P[1]=2
+    else:
+        P[1]=1
 
-if pH < 6 or pH > 8.5:
-    P[2]=2
-else:
-    P[2]=1
+    if temp < 20 or temp > 25:
+        P[0]=2
+    else:
+        P[0]=1
 
-if oxigenoDisuelto < 5 or oxigenoDisuelto > 10:
-    P[3]=2
-else:
-    P[3]=1
+    if pH < 6 or pH > 8.5:
+        P[2]=2
+    else:
+        P[2]=1
 
+    if oxigenoDisuelto < 5 or oxigenoDisuelto > 10:
+        P[3]=2
+    else:
+        P[3]=1
+
+    return P
 
 def calculo(P,W):
     Numerador =  sum([(P[i]*W[i]) for i in range(4)]) #suma los productos de p(i) por w(i)
@@ -40,13 +43,17 @@ def calculo(P,W):
     WQI=Numerador/Denominador
     return WQI
 
+def interpretacion(WQI):
+    if WQI < 1.5:
+        return "Calidad Baja"
+    elif WQI <2.5:
+        return "Calidad Aceptable"
+    elif WQI <=4:
+        return "Calidad Excelente"
+
 if __name__ == "__main__":
+    P=parametrizacion(conductividad,temp,pH,oxigenoDisuelto)
     WQI = calculo(P,W)
     print(WQI)
     print(f"WQI = {WQI}")
-    if WQI < 1.5:
-        print("Calidad Baja")
-    elif WQI <2.5:
-        print("Calidad Aceptable")
-    elif WQI <=4:
-        print("Calidad Excelente")
+    print(interpretacion(WQI))
