@@ -9,12 +9,10 @@ temp=27
 pH=7
 oxigenoDisuelto=6
 
-#Creamos una lista vacía de 4 elementos para P y los pesos fijos para W.
-P=[None]*4
-W=[1,2,3,4]
-
-
 def parametrizacion(conductividad,temp,pH,oxigenoDisuelto):
+    #Creamos una lista vacía de 4 elementos para P y los pesos fijos para W.
+    P=[None]*4
+    W=[1,2,3,4]
     if conductividad < 250 or conductividad > 700:
         P[1]=2
     else:
