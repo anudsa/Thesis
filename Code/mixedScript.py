@@ -7,6 +7,7 @@ import RPi.GPIO as GPIO
 import mysql.connector
 from datetime import datetime
 import grafica
+import WQIFormula as WQI
 #Database connection
 mysql_db = mysql.connector.connect(
     host="localhost",
@@ -156,8 +157,11 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             'conductividad_electrica': conductividad,
             'pH': potencialHidrogeno,
             'oxigeno_disuelto': 6 
-        }
+        }  
         addData(mediciones)
+        #Cálculo del índice
+        print("índice de calidad de agua:")
+        print(WQI.calculo([1,1,2,2],[1,2,3,4]))
         time.sleep(1)  # Tiempo de muestreo  
 
 #Function to print all date from the table lecturas
