@@ -4,10 +4,10 @@
 #  (Σᵢ₌₁⁴ Pᵢ)
 
 #Datos de prueba
-conductividad=500
-temp=27
-pH=7
-oxigenoDisuelto=6
+conductividad=0
+temp=0
+pH=0
+oxigenoDisuelto=0
 
 def parametrizacion(conductividad,temp,pH,oxigenoDisuelto):
     #Creamos una lista vacía de 4 elementos para P y los pesos fijos para W.
