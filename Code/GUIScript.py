@@ -74,15 +74,12 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     temp = 0
     conductividad = 0
     potencialHidrogeno = 0
-
-    print("Leyendo sensores del puerto usb {} y {}: ".format(usbport1, usbport2))
     
     #medición de temperatura
     one_wire_temps = getTemperatures()
 
     if one_wire_temps:
         temp = one_wire_temps[0]
-        print("Temperatura: {:.2f}°C".format(temp))
     else:
         print("Error al leer la temperatura")
 
@@ -116,7 +113,6 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 conductividad = float(line.decode('utf-8'))
-                print("Conductividad Eléctrica: {:.2f}".format(conductividad))
             except ValueError:
                 continue
     #medición de pH
@@ -149,7 +145,6 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 potencialHidrogeno = float(line.decode('utf-8'))
-                print("pH: {:.2f}".format(potencialHidrogeno))
             except ValueError:
                 continue
 
@@ -158,9 +153,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     oxigenoDisuelto=6
     P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
     indice =WQI.calculo(P,[1,2,3,4])
-    print(f"índice de calidad de agua: {indice} ")
     calidad=WQI.interpretacion(indice)
-    print(calidad)
 
     mediciones = {
         'tiempo': datetime.now(),
