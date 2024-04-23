@@ -163,13 +163,13 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         print(calidad)
 
     mediciones = {
-            'tiempo': datetime.now(),
-            'temperatura': temp,
-            'conductividad_electrica': conductividad,
-            'pH': potencialHidrogeno,
-            'oxigeno_disuelto': 6, 
-            'indice':indice,
-            'calidad':calidad
+        'tiempo': datetime.now(),
+        'temperatura': temp,
+        'conductividad_electrica': conductividad,
+        'pH': potencialHidrogeno,
+        'oxigeno_disuelto': 6, 
+        'indice':indice,
+        'calidad':calidad
     } 
     return mediciones
 
