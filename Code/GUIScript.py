@@ -153,14 +153,14 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             except ValueError:
                 continue
 
-        #Cálculo del índice
-        #valor de OD de prueba
-        oxigenoDisuelto=6
-        P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
-        indice =WQI.calculo(P,[1,2,3,4])
-        print(f"índice de calidad de agua: {indice} ")
-        calidad=WQI.interpretacion(indice)
-        print(calidad)
+    #Cálculo del índice
+    #valor de OD de prueba
+    oxigenoDisuelto=6
+    P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
+    indice =WQI.calculo(P,[1,2,3,4])
+    print(f"índice de calidad de agua: {indice} ")
+    calidad=WQI.interpretacion(indice)
+    print(calidad)
 
     mediciones = {
         'tiempo': datetime.now(),
