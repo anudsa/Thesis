@@ -72,8 +72,8 @@ def send_cmd(sensor, cmd):
     
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     temp = 0
-    #conductividad = 0
-    #potencialHidrogeno = 0
+    conductividad = 0
+    potencialHidrogeno = 0
     indice=0
     calidad=None
 
@@ -127,6 +127,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             try:
                 conductividad = float(line.decode('utf-8'))
                 mediciones['conductividad_electrica'] = conductividad
+                print("Conductividad Eléctrica: {:.2f}".format(conductividad))
             except ValueError:
                 continue
     #medición de pH
@@ -159,6 +160,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 potencialHidrogeno = float(line.decode('utf-8'))
+                print("pH: {:.2f}".format(potencialHidrogeno))
                 mediciones['pH'] = potencialHidrogeno
             except ValueError:
                 continue
