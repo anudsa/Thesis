@@ -79,9 +79,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
 
     mediciones = {
     'tiempo': datetime.now(),
-    'temperatura': temp,
-    'conductividad_electrica': conductividad,
-    'pH': potencialHidrogeno,
+    'temperatura': 0,
+    'conductividad_electrica': 0,
+    'pH': 0,
     'oxigeno_disuelto': 0, 
     'indice': 0,
     'calidad': None
