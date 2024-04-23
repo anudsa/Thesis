@@ -87,6 +87,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
 
         send_cmd(sensor1, "R")
         lines1 = read_lines(sensor1)
+        print("lines1")
         for line in lines1:
             if line.startswith(b'OK'):
                 continue
