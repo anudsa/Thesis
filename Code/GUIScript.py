@@ -35,6 +35,7 @@ def getTemperatures():
 
     return allTemps
 
+
 def read_line(sensor):
     lsl = len(b'\r')
     line_buffer = []
@@ -44,6 +45,7 @@ def read_line(sensor):
             break
         line_buffer.append(next_char)
         if len(line_buffer) >= lsl and line_buffer[-lsl:] == [b'\r']:
+            line_buffer = line_buffer[:-lsl]  # Strip the '\r' character
             break
     return b''.join(line_buffer)
 
@@ -60,6 +62,7 @@ def read_lines(sensor):
     except serial.SerialException as e:
         print("Error: ", e)
         return None
+
 
 def send_cmd(sensor, cmd):
     buf = cmd + "\r"
