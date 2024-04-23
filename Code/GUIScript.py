@@ -35,7 +35,6 @@ def getTemperatures():
 
     return allTemps
 
-
 def read_line(sensor):
     lsl = len(b'\r')
     line_buffer = []
@@ -45,7 +44,6 @@ def read_line(sensor):
             break
         line_buffer.append(next_char)
         if len(line_buffer) >= lsl and line_buffer[-lsl:] == [b'\r']:
-            line_buffer = line_buffer[:-lsl]  # Strip the '\r' character
             break
     return b''.join(line_buffer)
 
@@ -62,7 +60,6 @@ def read_lines(sensor):
     except serial.SerialException as e:
         print("Error: ", e)
         return None
-
 
 def send_cmd(sensor, cmd):
     buf = cmd + "\r"
@@ -225,24 +222,23 @@ def closeConnection():
     cursor.close()
     mysql_db.close()
 
-
 #Main script
 if __name__ == "__main__":
+    usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
+    #Se abren los puertos serial
+    try:
+        sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[0], e))
+        sys.exit(1)
+
+    try:
+        sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
+    except serial.SerialException as e:
+        print("Error opening serial port {}: {}".format(usbports[1], e))
+        sys.exit(1)
+
     while True:
-        usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
-        #Se abren los puertos serial
-        try:
-            sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
-        except serial.SerialException as e:
-            print("Error opening serial port {}: {}".format(usbports[0], e))
-            sys.exit(1)
-
-        try:
-            sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
-        except serial.SerialException as e:
-            print("Error opening serial port {}: {}".format(usbports[1], e))
-            sys.exit(1)
-
         try:
             mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
             print("Tiempo:", mediciones['tiempo'])
@@ -257,5 +253,4 @@ if __name__ == "__main__":
             print("Se han detenido las mediciones.")
             closeConnection()
             sys.exit(0) # Finaliza el programa
-        time.sleep(1)  # Tiempo de muestreo  
-
+        time.sleep(1)  # Tiempo de muestreo
