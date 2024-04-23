@@ -162,7 +162,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         calidad=WQI.interpretacion(indice)
         print(calidad)
 
-        mediciones = {
+    mediciones = {
             'tiempo': datetime.now(),
             'temperatura': temp,
             'conductividad_electrica': conductividad,
@@ -170,7 +170,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             'oxigeno_disuelto': 6, 
             'indice':indice,
             'calidad':calidad
-        } 
+    } 
     return mediciones
 
 
