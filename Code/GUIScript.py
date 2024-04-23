@@ -72,11 +72,11 @@ def send_cmd(sensor, cmd):
     
 def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     temp = 0
-    conductividad = 0
-    potencialHidrogeno = 0
+    #conductividad = 0
+    #potencialHidrogeno = 0
     indice=0
     calidad=None
-    
+
     mediciones = {
     'tiempo': datetime.now(),
     'temperatura': temp,
