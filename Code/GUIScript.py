@@ -75,11 +75,22 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     conductividad = 0
     potencialHidrogeno = 0
     
+    mediciones = {
+    'tiempo': datetime.now(),
+    'temperatura': 0,
+    'conductividad_electrica': 0,
+    'pH': 0,
+    'oxigeno_disuelto': 0, 
+    'indice': 0,
+    'calidad': None
+    }
+
     #medición de temperatura
     one_wire_temps = getTemperatures()
 
     if one_wire_temps:
         temp = one_wire_temps[0]
+        mediciones['temperatura'] = temp
     else:
         print("Error al leer la temperatura")
 
@@ -113,6 +124,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 conductividad = float(line.decode('utf-8'))
+                mediciones['conductividad_electrica'] = conductividad
             except ValueError:
                 continue
     #medición de pH
@@ -145,6 +157,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 potencialHidrogeno = float(line.decode('utf-8'))
+                mediciones['pH'] = potencialHidrogeno
             except ValueError:
                 continue
 
@@ -153,17 +166,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     oxigenoDisuelto=6
     P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
     indice =WQI.calculo(P,[1,2,3,4])
+    mediciones['indice'] = indice
     calidad=WQI.interpretacion(indice)
-
-    mediciones = {
-        'tiempo': datetime.now(),
-        'temperatura': temp,
-        'conductividad_electrica': conductividad,
-        'pH': potencialHidrogeno,
-        'oxigeno_disuelto': 6, 
-        'indice':indice,
-        'calidad':calidad
-    } 
+    mediciones['calidad'] = calidad
     return mediciones
 
 
@@ -242,5 +247,6 @@ if __name__ == "__main__":
         except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
             print("Se han detenido las mediciones.")
             closeConnection()
+            sys.exit(0) # Finaliza el programa
         time.sleep(1)  # Tiempo de muestreo  
 
