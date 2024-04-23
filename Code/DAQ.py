@@ -458,9 +458,8 @@ if __name__ == "__main__":
     )
 
     window.resizable(False, False)
-
-    # Start the Tkinter main event loop
-
+    window.mainloop()
+    
     while True:
         try:
             mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
@@ -476,7 +475,6 @@ if __name__ == "__main__":
             print("Se han detenido las mediciones.")
             closeConnection()
             sys.exit(0) # Finaliza el programa
-        window.mainloop()
         time.sleep(1)  # Tiempo de muestreo
 
     
