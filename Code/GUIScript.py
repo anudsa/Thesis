@@ -101,6 +101,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     lines1 = read_lines(sensor1)
     for line in lines1:
         if line.startswith(b'OK'):
+            print("1")
             continue
         elif line.startswith(b'*ER'):
             print("Comando desconocido en el sensor 1")
@@ -110,6 +111,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             continue
         elif line.startswith(b'*UV'):
             conductividad = conductividad  # Usar valor anterior
+            print("4")
             continue
         elif line.startswith(b'*RS'):
             print("Sensor 1 reseteado")
@@ -127,8 +129,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
             try:
                 conductividad = float(line.decode('utf-8'))
                 mediciones['conductividad_electrica'] = conductividad
-                print("Conductividad Eléctrica: {:.2f}".format(conductividad))
+                print("try")
             except ValueError:
+                print("valueerror")
                 continue
     #medición de pH
     send_cmd(sensor2, "R")
@@ -160,7 +163,6 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         else:
             try:
                 potencialHidrogeno = float(line.decode('utf-8'))
-                print("pH: {:.2f}".format(potencialHidrogeno))
                 mediciones['pH'] = potencialHidrogeno
             except ValueError:
                 continue
