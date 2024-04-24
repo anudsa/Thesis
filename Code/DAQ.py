@@ -379,19 +379,17 @@ if __name__ == "__main__":
         calidad = mediciones['calidad']
         canvas.itemconfig(tagOrId=calidadText, text=calidad)
     
-    detener=False
     def detenerMediciones(): 
-        global detener
-        detener=True
-        print("I'm Done")
+        raise KeyboardInterrupt
         
     def medirContinuamente():
-        global detener
-        detener=False
-        while detener==False:
-            print("I'm running")
-            time.sleep(1)
-            
+        try:
+            while True:
+                print("I'm running")
+                time.sleep(1)  # Sample time
+        except KeyboardInterrupt:
+            print("Loop stopped")
+
 
     # Se crean los botones
     button_image_1 = PhotoImage(
