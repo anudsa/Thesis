@@ -9,7 +9,7 @@ from datetime import datetime
 import grafica
 import WQIFormula as WQI
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/build/assets/frame0")
@@ -354,20 +354,30 @@ if __name__ == "__main__":
 
     # Se definen las funciones
     def actualizarDatos():
-        pHValor = 7
+
+        mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        print("Tiempo:", mediciones['tiempo'])
+        print("Temperatura:", mediciones['temperatura'])
+        print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
+        print("pH:", mediciones['pH'])
+        print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
+        print("Índice:", mediciones['indice'])
+        print("Calidad:", mediciones['calidad'])
+
+        pHValor = mediciones['pH']
         canvas.itemconfig(tagOrId=pHText, text=f"ph: {pHValor}")
 
-        conductividadValor = 400
+        conductividadValor = mediciones['conductividad_electrica']
         canvas.itemconfig(tagOrId=conductividadText, text=f"Conductividad: {conductividadValor}")
 
-        temperaturaValor = 25
+        temperaturaValor = mediciones['temperatura']
         canvas.itemconfig(tagOrId=temperaturaText, text=f"Temperatura: {temperaturaValor}")
 
-        indice = 2.5
+        indice = mediciones['indice']
         canvas.itemconfig(tagOrId=indiceText, text=f"Índice de Calidad de Agua: {indice}")
 
-        calidad = ["Baja", "Aceptable", "Excelente"]
-        canvas.itemconfig(tagOrId=calidadText, text=f"Calidad: {calidad[1]}")
+        calidad = mediciones['calidad']
+        canvas.itemconfig(tagOrId=calidadText, text=calidad)
 
 
     # Se crean los botones
