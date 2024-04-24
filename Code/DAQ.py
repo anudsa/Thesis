@@ -460,22 +460,6 @@ if __name__ == "__main__":
     window.resizable(False, False)
     window.mainloop()
     
-    while True:
-        try:
-            mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-            print("Tiempo:", mediciones['tiempo'])
-            print("Temperatura:", mediciones['temperatura'])
-            print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
-            print("pH:", mediciones['pH'])
-            print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
-            print("Índice:", mediciones['indice'])
-            print("Calidad:", mediciones['calidad'])
-
-        except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
-            print("Se han detenido las mediciones.")
-            closeConnection()
-            sys.exit(0) # Finaliza el programa
-        time.sleep(1)  # Tiempo de muestreo
-
+   
     
 
