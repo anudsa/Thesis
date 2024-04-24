@@ -10,6 +10,7 @@ import grafica
 import WQIFormula as WQI
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
+import threading
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/build/assets/frame0")
@@ -378,17 +379,22 @@ if __name__ == "__main__":
 
         calidad = mediciones['calidad']
         canvas.itemconfig(tagOrId=calidadText, text=calidad)
-    
-    def detenerMediciones(): 
-        raise KeyboardInterrupt
-        
+
+    detener=False
+
     def medirContinuamente():
-        try:
-            while True:
-                print("I'm running")
-                time.sleep(1)  # Sample time
-        except KeyboardInterrupt:
-            print("Loop stopped")
+        global detener
+        detener = False
+        while not detener:
+            print("I'm running")
+            time.sleep(1)  # Tiempo de muestreo
+
+    def detenerMediciones():
+        global detener
+        detener = True
+
+    # Create a thread for medirContinuamente() function
+    medir_thread = threading.Thread(target=medirContinuamente)
 
 
     # Se crean los botones
