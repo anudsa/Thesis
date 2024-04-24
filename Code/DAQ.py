@@ -392,10 +392,7 @@ if __name__ == "__main__":
     def detenerMediciones():
         global detener
         detener = True
-
-    # Create a thread for medirContinuamente() function
-    medir_thread = threading.Thread(target=medirContinuamente)
-
+        print("Stopped")
 
     # Se crean los botones
     button_image_1 = PhotoImage(
@@ -404,7 +401,7 @@ if __name__ == "__main__":
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=medirContinuamente,
+        command=lambda:threading.Thread(target=medirContinuamente).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1.place(
