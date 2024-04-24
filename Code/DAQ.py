@@ -378,13 +378,15 @@ if __name__ == "__main__":
 
         calidad = mediciones['calidad']
         canvas.itemconfig(tagOrId=calidadText, text=calidad)
-
-    def detenerMediciones():
+    
+    detener=False
+    def detenerMediciones(): 
         global detener
         detener=True
         print("I'm Done")
         
     def medirContinuamente():
+        global detener
         detener=False
         while detener==False:
             print("I'm running")
