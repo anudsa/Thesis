@@ -10,7 +10,12 @@ import grafica
 import WQIFormula as WQI
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+#Path para la gui es establecido
+OUTPUT_PATH = Path(__file__).parent
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/build/assets/frame0")
 
+def relative_to_assets(path: str) -> Path:
+    return ASSETS_PATH / Path(path)
 #Database connection
 mysql_db = mysql.connector.connect(
     host="localhost",
