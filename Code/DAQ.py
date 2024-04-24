@@ -228,38 +228,6 @@ def closeConnection():
 #Main script
 if __name__ == "__main__":
     usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
-    #Se abren los puertos serial
-    try:
-        sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
-    except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[0], e))
-        sys.exit(1)
-
-    try:
-        sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
-    except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[1], e))
-        sys.exit(1)
-
-    while True:
-        try:
-            mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-            print("Tiempo:", mediciones['tiempo'])
-            print("Temperatura:", mediciones['temperatura'])
-            print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
-            print("pH:", mediciones['pH'])
-            print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
-            print("Índice:", mediciones['indice'])
-            print("Calidad:", mediciones['calidad'])
-
-        except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
-            print("Se han detenido las mediciones.")
-            closeConnection()
-            sys.exit(0) # Finaliza el programa
-        time.sleep(1)  # Tiempo de muestreo
-##
-if __name__ == "__main__":
-    usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
     # Se abren los puertos serial
     try:
         sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
@@ -460,6 +428,19 @@ if __name__ == "__main__":
     window.resizable(False, False)
     window.mainloop()
     
-   
-    
+    while True:
+        try:
+            mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+            print("Tiempo:", mediciones['tiempo'])
+            print("Temperatura:", mediciones['temperatura'])
+            print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
+            print("pH:", mediciones['pH'])
+            print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
+            print("Índice:", mediciones['indice'])
+            print("Calidad:", mediciones['calidad'])
 
+        except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
+            print("Se han detenido las mediciones.")
+            closeConnection()
+            sys.exit(0) # Finaliza el programa
+        time.sleep(1)  # Tiempo de muestreo
