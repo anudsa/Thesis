@@ -379,6 +379,17 @@ if __name__ == "__main__":
         calidad = mediciones['calidad']
         canvas.itemconfig(tagOrId=calidadText, text=calidad)
 
+    def detenerMediciones():
+        global detener
+        detener=True
+        print("I'm Done")
+        
+    def medirContinuamente():
+        detener=False
+        while detener==False:
+            print("I'm running")
+            time.sleep(1)
+            
 
     # Se crean los botones
     button_image_1 = PhotoImage(
@@ -387,7 +398,7 @@ if __name__ == "__main__":
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=actualizarDatos,
+        command=medirContinuamente,
         relief="flat"
     )
     button_1.place(
@@ -403,7 +414,7 @@ if __name__ == "__main__":
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=detenerMediciones,
         relief="flat"
     )
     button_2.place(
@@ -443,19 +454,3 @@ if __name__ == "__main__":
     window.resizable(False, False)
     window.mainloop()
     
-    while True:
-        try:
-            mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-            print("Tiempo:", mediciones['tiempo'])
-            print("Temperatura:", mediciones['temperatura'])
-            print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
-            print("pH:", mediciones['pH'])
-            print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
-            print("Índice:", mediciones['indice'])
-            print("Calidad:", mediciones['calidad'])
-
-        except KeyboardInterrupt: 		# catches the ctrl-c command, which breaks the loop above
-            print("Se han detenido las mediciones.")
-            closeConnection()
-            sys.exit(0) # Finaliza el programa
-        time.sleep(1)  # Tiempo de muestreo
