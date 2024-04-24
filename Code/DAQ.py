@@ -386,13 +386,13 @@ if __name__ == "__main__":
         global detener
         detener = False
         while not detener:
-            print("I'm running")
+            actualizarDatos()
             time.sleep(1)  # Tiempo de muestreo
 
     def detenerMediciones():
         global detener
         detener = True
-        print("Stopped")
+        print("Detenido")
 
     # Se crean los botones
     button_image_1 = PhotoImage(
