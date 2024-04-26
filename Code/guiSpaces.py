@@ -685,9 +685,12 @@ if __name__ == "__main__":
 
     def setTiempoMuestreo():
         global tiempo_muestreo_continua 
-        tiempo_muestreo_continua= entry_1_continua.get()
-        print(f"you set the sample time to {tiempo_muestreo_continua}")
-        pass
+        try:
+            tiempo_muestreo_continua= int(entry_1_continua.get())
+            print(f"you set the sample time to {tiempo_muestreo_continua}") 
+        except ValueError:
+            print("That is not a number")
+            
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamenteContinua():
         global detener_continua
