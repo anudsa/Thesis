@@ -680,6 +680,7 @@ if __name__ == "__main__":
 
         calidad_continua = mediciones['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
+
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamente():
         global detener_continua
@@ -687,12 +688,18 @@ if __name__ == "__main__":
         tiempo_muestreo_continua=1
         while not detener_continua:
             actualizarDatos()
+            update_gui()
             time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
     #Detiene la medicio continua
     def detenerMediciones():
         global detener_continua
         detener_continua = True
         print("Detenido")
+    
+
+    def update_gui():
+    # Schedule the next update after 1000 milliseconds (1 second)
+        medicionContinua.after(1000, update_gui)
 
     #Botones
     button_image_1_continua = PhotoImage(
