@@ -681,6 +681,13 @@ if __name__ == "__main__":
         calidad_continua = mediciones_continua['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
 
+    tiempo_muestreo_continua=None
+
+    def setTiempoMuestreo():
+        global tiempo_muestreo_continua 
+        tiempo_muestreo_continua= entry_1_continua.get()
+        print(f"you set the sample time to {tiempo_muestreo_continua}")
+        pass
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamenteContinua():
         global detener_continua
@@ -772,7 +779,7 @@ if __name__ == "__main__":
         image=button_image_5_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_5_continua clicked"),
+        command=setTiempoMuestreo,
         relief="flat"
     )
     button_5_continua.place(
