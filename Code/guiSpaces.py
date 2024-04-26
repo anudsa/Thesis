@@ -271,6 +271,7 @@ if __name__ == "__main__":
     medicionContinua.grid(row=0, column=0)
     medicionEnIntervalos.grid(row=0, column=0)
     
+
     ##### Medicion En Intervalos ####
     #Fondo
     canvas_intervalos = Canvas(
@@ -356,7 +357,7 @@ if __name__ == "__main__":
         image=image_image_9_intervalos
     )
     #Texto
-    canvas_intervalos.create_text(
+    pHText_intervalos=canvas_intervalos.create_text(
         332.0,
         123.0,
         anchor="nw",
@@ -365,7 +366,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvas_intervalos.create_text(
+    conductividadText_intervalos=canvas_intervalos.create_text(
         332.0,
         235.0,
         anchor="nw",
@@ -374,7 +375,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvas_intervalos.create_text(
+    temperaturaText_intervalos=canvas_intervalos.create_text(
         328.0,
         347.0,
         anchor="nw",
@@ -383,7 +384,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvas_intervalos.create_text(
+    indiceText_intervalos=canvas_intervalos.create_text(
         328.0,
         459.0,
         anchor="nw",
@@ -392,7 +393,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvas_intervalos.create_text(
+    calidadText_intervalos=canvas_intervalos.create_text(
         328.0,
         571.0,
         anchor="nw",
@@ -609,7 +610,7 @@ if __name__ == "__main__":
         image=image_image_8_continua
     )
     #Texto
-    canvasContinua.create_text(
+    pHText_continua=canvasContinua.create_text(
         332.0,
         123.0,
         anchor="nw",
@@ -618,7 +619,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasContinua.create_text(
+    conductividadText_continua=canvasContinua.create_text(
         332.0,
         235.0,
         anchor="nw",
@@ -627,7 +628,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasContinua.create_text(
+    temperaturaText_continua=canvasContinua.create_text(
         328.0,
         347.0,
         anchor="nw",
@@ -636,7 +637,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasContinua.create_text(
+    indiceText_continua=canvasContinua.create_text(
         328.0,
         459.0,
         anchor="nw",
@@ -645,7 +646,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasContinua.create_text(
+    calidadText_continua=canvasContinua.create_text(
         328.0,
         571.0,
         anchor="nw",
@@ -857,7 +858,7 @@ if __name__ == "__main__":
         image=image_image_7
     )
     #Texto
-    canvasPuntual.create_text(
+    pHText_puntual=canvasPuntual.create_text(
         332.0,
         161.0,
         anchor="nw",
@@ -866,7 +867,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasPuntual.create_text(
+    conductividadText_puntual=canvasPuntual.create_text(
         332.0,
         273.0,
         anchor="nw",
@@ -875,7 +876,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasPuntual.create_text(
+    temperaturaText_puntual=canvasPuntual.create_text(
         328.0,
         385.0,
         anchor="nw",
@@ -884,7 +885,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasPuntual.create_text(
+    indiceText_puntual=canvasPuntual.create_text(
         328.0,
         497.0,
         anchor="nw",
@@ -893,7 +894,7 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
     
-    canvasPuntual.create_text(
+    calidadText_puntual=canvasPuntual.create_text(
         328.0,
         609.0,
         anchor="nw",
@@ -901,7 +902,33 @@ if __name__ == "__main__":
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
-    
+# Se definen las funciones
+    def actualizarDatos():
+        #Hace una sola medicion de todas las variables.
+        mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        print("Tiempo:", mediciones['tiempo'])
+        print("Temperatura:", mediciones['temperatura'])
+        print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
+        print("pH:", mediciones['pH'])
+        print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
+        print("Índice:", mediciones['indice'])
+        print("Calidad:", mediciones['calidad'])
+
+        pHValor_puntual = mediciones['pH']
+        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
+
+        conductividadValor_puntual = mediciones['conductividad_electrica']
+        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual}")
+
+        temperaturaValor_puntual = mediciones['temperatura']
+        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual}")
+
+        indice_puntual = mediciones['indice']
+        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual}")
+
+        calidad = mediciones['calidad']
+        canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=calidad)
+
     #Botones
     button_image_1_puntual = PhotoImage(
         file=relative_to_assets("button_1_puntual.png"))
@@ -910,7 +937,7 @@ if __name__ == "__main__":
         image=button_image_1_puntual,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1_puntual clicked"),
+        command=actualizarDatos, #Hace una lectura
         relief="flat"
     )
     button_1_puntual.place(
@@ -1027,7 +1054,7 @@ if __name__ == "__main__":
         image=image_image_2
     )
     
-    # Create text within the canvas
+    # Header
     canvasHomescreen.create_text(
         346.0,
         28.0,
