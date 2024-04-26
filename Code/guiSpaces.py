@@ -681,7 +681,7 @@ if __name__ == "__main__":
         calidad_continua = mediciones_continua['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
 
-    tiempo_muestreo_continua=None
+    tiempo_muestreo_continua=1 #Tiempo default de 1 segundo
 
     def setTiempoMuestreo():
         global tiempo_muestreo_continua 
@@ -692,7 +692,7 @@ if __name__ == "__main__":
     def medirContinuamenteContinua():
         global detener_continua
         detener_continua = False
-        tiempo_muestreo_continua=1
+        global tiempo_muestreo_continua
         while not detener_continua:
             actualizarDatosContinua()
             time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
