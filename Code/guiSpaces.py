@@ -688,7 +688,7 @@ if __name__ == "__main__":
         global tiempo_muestreo_continua 
         try:
             tiempo_muestreo_continua= int(entry_1_continua.get())
-            messagebox.showinfo("Listo",f"El tiempo de muestreo es: {tiempo_muestreo_continua}")
+            messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundos.")
         except ValueError:
             messagebox.showerror("Error","Inserte un número válido")
 
@@ -709,7 +709,7 @@ if __name__ == "__main__":
 
     #Regresa a home y detiene mediciones
     def irAHomeBoton():
-        detener_continua()
+        detenerMedicionesContinua()
         show_frame(Homescreen)
 
     #Botones
