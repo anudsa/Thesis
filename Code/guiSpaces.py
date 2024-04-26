@@ -654,6 +654,33 @@ if __name__ == "__main__":
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
+# Se definen las funciones
+    def actualizarDatos():
+        #Hace una sola medicion de todas las variables.
+        mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        print("Tiempo:", mediciones['tiempo'])
+        print("Temperatura:", mediciones['temperatura'])
+        print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
+        print("pH:", mediciones['pH'])
+        print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
+        print("Índice:", mediciones['indice'])
+        print("Calidad:", mediciones['calidad'])
+
+        pHText_continua = mediciones['pH']
+        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHText_continua}")
+
+        conductividadValor_continua = mediciones['conductividad_electrica']
+        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua}")
+
+        temperaturaValor_continua = mediciones['temperatura']
+        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua}")
+
+        indice_continua = mediciones['indice']
+        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua}")
+
+        calidad_continua = mediciones['calidad']
+        canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
+
     #Botones
     button_image_1_continua = PhotoImage(
         file=relative_to_assets("button_1_Continua.png"))
@@ -662,7 +689,7 @@ if __name__ == "__main__":
         image=button_image_1_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1_continua clicked"),
+        command=actualizarDatos, #Hace una lectura
         relief="flat"
     )
     button_1_continua.place(
