@@ -680,6 +680,19 @@ if __name__ == "__main__":
 
         calidad_continua = mediciones['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
+    #Mide continuamente hasta que se presiona el boton detener  
+    def medirContinuamente():
+        global detener_continua
+        detener_continua = False
+        tiempo_muestreo_continua=1
+        while not detener_continua:
+            actualizarDatos()
+            time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
+    #Detiene la medicio continua
+    def detenerMediciones():
+        global detener_continua
+        detener_continua = True
+        print("Detenido")
 
     #Botones
     button_image_1_continua = PhotoImage(
@@ -689,7 +702,7 @@ if __name__ == "__main__":
         image=button_image_1_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=actualizarDatos, #Hace una lectura
+        command=lambda:threading.Thread(target=medirContinuamente).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1_continua.place(
@@ -706,7 +719,7 @@ if __name__ == "__main__":
         image=button_image_2_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2_continua clicked"),
+        command=detenerMediciones,
         relief="flat"
     )
     button_2_continua.place(
