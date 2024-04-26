@@ -544,7 +544,7 @@ if __name__ == "__main__":
         highlightthickness = 0,
         relief = "ridge"
     )
-    canvasContinua.place(x=0,y=0)
+    canvasContinua.grid(row=0,column=0)
     #Imagenes
     image_image_1_continua = PhotoImage(
         file=relative_to_assets("image_1_Continua.png"))
