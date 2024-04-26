@@ -612,7 +612,7 @@ if __name__ == "__main__":
     #Texto
     pHText_continua=canvasContinua.create_text(
         332.0,
-        123.0,
+        161.0,
         anchor="nw",
         text="pH: N/A",
         fill="#FFFFFF",
