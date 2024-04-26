@@ -668,16 +668,16 @@ if __name__ == "__main__":
         print("Calidad:", mediciones_continua['calidad'])
 
         pHValor_continua = mediciones_continua['pH']
-        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.3f}")
+        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.4f}")
 
         conductividadValor_continua = mediciones_continua['conductividad_electrica']
-        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.3f}")
+        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f}")
 
         temperaturaValor_continua = mediciones_continua['temperatura']
-        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.3f}")
+        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.4f}")
 
         indice_continua = mediciones_continua['indice']
-        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.3f}")
+        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.4f}")
 
         calidad_continua = mediciones_continua['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
@@ -979,17 +979,17 @@ if __name__ == "__main__":
 
         pHValor_puntual = mediciones_puntual['pH']
         #canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
-        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual:.3f}")
+        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual:.4f}")
 
 
         conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
-        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.3f}")
+        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.4f}")
 
         temperaturaValor_puntual = mediciones_puntual['temperatura']
-        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.3f}")
+        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.4f}")
 
         indice_puntual = mediciones_puntual['indice']
-        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual:.3f}")
+        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual:.4f}")
 
         calidad = mediciones_puntual['calidad']
         canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=calidad)
