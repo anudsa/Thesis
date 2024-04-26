@@ -612,13 +612,13 @@ if __name__ == "__main__":
     #Texto
     pHText_continua=canvasContinua.create_text(
         332.0,
-        161.0,
+        123.0,
         anchor="nw",
         text="pH: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
-    
+
     conductividadText_continua=canvasContinua.create_text(
         332.0,
         235.0,
@@ -666,8 +666,8 @@ if __name__ == "__main__":
         print("Índice:", mediciones['indice'])
         print("Calidad:", mediciones['calidad'])
 
-        pHText_continua = mediciones['pH']
-        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHText_continua}")
+        pHValor_continua = mediciones['pH']
+        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua}")
 
         conductividadValor_continua = mediciones['conductividad_electrica']
         canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua}")
