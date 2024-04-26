@@ -1,5 +1,6 @@
 from pathlib import Path
 from tkinter import *
+from tkinter import messagebox
 import serial
 import sys
 import time
@@ -687,10 +688,10 @@ if __name__ == "__main__":
         global tiempo_muestreo_continua 
         try:
             tiempo_muestreo_continua= int(entry_1_continua.get())
-            print(f"you set the sample time to {tiempo_muestreo_continua}") 
+            messagebox.showinfo("Listo",f"El tiempo de muestreo es: {tiempo_muestreo_continua}")
         except ValueError:
-            print("That is not a number")
-            
+            messagebox.showerror("Error","Inserte un número válido")
+
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamenteContinua():
         global detener_continua
@@ -699,12 +700,17 @@ if __name__ == "__main__":
         while not detener_continua:
             actualizarDatosContinua()
             time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
+
     #Detiene la medicio continua
     def detenerMedicionesContinua():
         global detener_continua
         detener_continua = True
         print("Detenido")
-    
+
+    #Regresa a home y detiene mediciones
+    def irAHomeBoton():
+        detener_continua()
+        show_frame(Homescreen)
 
     #Botones
     button_image_1_continua = PhotoImage(
@@ -799,7 +805,7 @@ if __name__ == "__main__":
         image=button_image_6_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: show_frame(Homescreen),  #Home
+        command=irAHomeBoton,  #Home
         relief="flat"
     )
     button_6_continua.place(
