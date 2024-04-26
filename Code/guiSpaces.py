@@ -687,7 +687,7 @@ if __name__ == "__main__":
         detener_continua = False
         tiempo_muestreo_continua=1
         while not detener_continua:
-            actualizarDatos()
+            actualizarDatosContinua()
             time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
     #Detiene la medicio continua
     def detenerMedicionesContinua():
