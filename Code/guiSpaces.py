@@ -689,9 +689,11 @@ if __name__ == "__main__":
         try:
             tiempo_muestreo_continua= int(entry_1_continua.get())
             if(tiempo_muestreo_continua==1):
-                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundo.")    
+                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundo.")    
+            elif(tiempo_muestreo_continua==0):
+                messagebox.showerror("Error","Inserte un número válido")
             else:
-                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundos.")
+                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundos.")
         except ValueError:
             messagebox.showerror("Error","Inserte un número válido")
 
