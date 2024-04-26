@@ -668,16 +668,16 @@ if __name__ == "__main__":
         print("Calidad:", mediciones_continua['calidad'])
 
         pHValor_continua = mediciones_continua['pH']
-        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua}")
+        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.3f}")
 
         conductividadValor_continua = mediciones_continua['conductividad_electrica']
-        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua}")
+        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.3f}")
 
         temperaturaValor_continua = mediciones_continua['temperatura']
-        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua}")
+        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.3f}")
 
         indice_continua = mediciones_continua['indice']
-        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua}")
+        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.3f}")
 
         calidad_continua = mediciones_continua['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
@@ -688,7 +688,10 @@ if __name__ == "__main__":
         global tiempo_muestreo_continua 
         try:
             tiempo_muestreo_continua= int(entry_1_continua.get())
-            messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundos.")
+            if(tiempo_muestreo_continua==1):
+                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundo.")    
+            else:
+                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es: {tiempo_muestreo_continua} segundos.")
         except ValueError:
             messagebox.showerror("Error","Inserte un número válido")
 
@@ -973,16 +976,18 @@ if __name__ == "__main__":
         print("Calidad:", mediciones_puntual['calidad'])
 
         pHValor_puntual = mediciones_puntual['pH']
-        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
+        #canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
+        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual:.3f}")
+
 
         conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
-        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual}")
+        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.3f}")
 
         temperaturaValor_puntual = mediciones_puntual['temperatura']
-        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual}")
+        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.3f}")
 
         indice_puntual = mediciones_puntual['indice']
-        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual}")
+        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual:.3f}")
 
         calidad = mediciones_puntual['calidad']
         canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=calidad)
