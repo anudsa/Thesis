@@ -779,7 +779,7 @@ if __name__ == "__main__":
         image=button_image_5_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=setTiempoMuestreo,
+        command=setTiempoMuestreo, #boton ok para el muestreo
         relief="flat"
     )
     button_5_continua.place(
