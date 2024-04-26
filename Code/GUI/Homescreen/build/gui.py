@@ -409,7 +409,7 @@ canvasContinua.create_text(
 )
 #Botones
 button_image_1_continua = PhotoImage(
-    file=relative_to_assets("button_1_continua.png"))
+    file=relative_to_assets("button_1_Continua.png"))
 button_1_continua = Button(
     medicionContinua,
     image=button_image_1_continua,
@@ -426,7 +426,7 @@ button_1_continua.place(
 )
 
 button_image_2_continua = PhotoImage(
-    file=relative_to_assets("button_2_continua.png"))
+    file=relative_to_assets("button_2_Continua.png"))
 button_2_continua = Button(
     medicionContinua,
     image=button_image_2_continua,
@@ -443,7 +443,7 @@ button_2_continua.place(
 )
 
 button_image_3_continua = PhotoImage(
-    file=relative_to_assets("button_3_continua.png"))
+    file=relative_to_assets("button_3_Continua.png"))
 button_3_continua = Button(
     medicionContinua,
     image=button_image_3_continua,
@@ -460,7 +460,7 @@ button_3_continua.place(
 )
 
 button_image_4_continua = PhotoImage(
-    file=relative_to_assets("button_4_continua.png"))
+    file=relative_to_assets("button_4_Continua.png"))
 button_4_continua = Button(
     medicionContinua,
     image=button_image_4_continua,
@@ -477,7 +477,7 @@ button_4_continua.place(
 )
 
 button_image_5_continua = PhotoImage(
-    file=relative_to_assets("button_5_continua.png"))
+    file=relative_to_assets("button_5_Continua.png"))
 button_5_continua = Button(
     medicionContinua,
     image=button_image_5_continua,
@@ -494,7 +494,7 @@ button_5_continua.place(
 )
 
 button_image_6_continua = PhotoImage(
-    file=relative_to_assets("button_6_continua.png"))
+    file=relative_to_assets("button_6_Continua.png"))
 button_6_continua = Button(
     medicionContinua,
     image=button_image_6_continua,
@@ -511,7 +511,7 @@ button_6_continua.place(
 )
 #Input text
 entry_image_1_continua = PhotoImage(
-    file=relative_to_assets("entry_1_continua.png"))
+    file=relative_to_assets("entry_1_Continua.png"))
 
 entry_bg_1_continua = canvasContinua.create_image(
     746.0,
