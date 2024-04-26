@@ -544,7 +544,7 @@ if __name__ == "__main__":
         highlightthickness = 0,
         relief = "ridge"
     )
-    canvasContinua.grid(row=0,column=0)
+    canvasContinua.pack()
     #Imagenes
     image_image_1_continua = PhotoImage(
         file=relative_to_assets("image_1_Continua.png"))
@@ -655,34 +655,34 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
 # Se definen las funciones
-    def actualizarDatos():
+    def actualizarDatosContinua():
         #Hace una sola medicion de todas las variables.
-        mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-        print("Tiempo:", mediciones['tiempo'])
-        print("Temperatura:", mediciones['temperatura'])
-        print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
-        print("pH:", mediciones['pH'])
-        print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
-        print("Índice:", mediciones['indice'])
-        print("Calidad:", mediciones['calidad'])
+        mediciones_continua = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        print("Tiempo:", mediciones_continua['tiempo'])
+        print("Temperatura:", mediciones_continua['temperatura'])
+        print("Conductividad eléctrica:", mediciones_continua['conductividad_electrica'])
+        print("pH:", mediciones_continua['pH'])
+        print("Oxígeno disuelto:", mediciones_continua['oxigeno_disuelto'])
+        print("Índice:", mediciones_continua['indice'])
+        print("Calidad:", mediciones_continua['calidad'])
 
-        pHValor_continua = mediciones['pH']
+        pHValor_continua = mediciones_continua['pH']
         canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua}")
 
-        conductividadValor_continua = mediciones['conductividad_electrica']
+        conductividadValor_continua = mediciones_continua['conductividad_electrica']
         canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua}")
 
-        temperaturaValor_continua = mediciones['temperatura']
+        temperaturaValor_continua = mediciones_continua['temperatura']
         canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua}")
 
-        indice_continua = mediciones['indice']
+        indice_continua = mediciones_continua['indice']
         canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua}")
 
-        calidad_continua = mediciones['calidad']
+        calidad_continua = mediciones_continua['calidad']
         canvasContinua.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
 
     #Mide continuamente hasta que se presiona el boton detener  
-    def medirContinuamente():
+    def medirContinuamenteContinua():
         global detener_continua
         detener_continua = False
         tiempo_muestreo_continua=1
@@ -690,7 +690,7 @@ if __name__ == "__main__":
             actualizarDatos()
             time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
     #Detiene la medicio continua
-    def detenerMediciones():
+    def detenerMedicionesContinua():
         global detener_continua
         detener_continua = True
         print("Detenido")
@@ -704,7 +704,7 @@ if __name__ == "__main__":
         image=button_image_1_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda:threading.Thread(target=medirContinuamente).start(), # Se crea un hilo dedicado a medir continuamente
+        command=lambda:threading.Thread(target=medirContinuamenteContinua).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1_continua.place(
@@ -721,7 +721,7 @@ if __name__ == "__main__":
         image=button_image_2_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=detenerMediciones,
+        command=detenerMedicionesContinua,
         relief="flat"
     )
     button_2_continua.place(
@@ -945,30 +945,30 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 32 * -1)
     )
 # Se definen las funciones
-    def actualizarDatos():
+    def actualizarDatosPuntual():
         #Hace una sola medicion de todas las variables.
-        mediciones = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-        print("Tiempo:", mediciones['tiempo'])
-        print("Temperatura:", mediciones['temperatura'])
-        print("Conductividad eléctrica:", mediciones['conductividad_electrica'])
-        print("pH:", mediciones['pH'])
-        print("Oxígeno disuelto:", mediciones['oxigeno_disuelto'])
-        print("Índice:", mediciones['indice'])
-        print("Calidad:", mediciones['calidad'])
+        mediciones_puntual = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        print("Tiempo:", mediciones_puntual['tiempo'])
+        print("Temperatura:", mediciones_puntual['temperatura'])
+        print("Conductividad eléctrica:", mediciones_puntual['conductividad_electrica'])
+        print("pH:", mediciones_puntual['pH'])
+        print("Oxígeno disuelto:", mediciones_puntual['oxigeno_disuelto'])
+        print("Índice:", mediciones_puntual['indice'])
+        print("Calidad:", mediciones_puntual['calidad'])
 
-        pHValor_puntual = mediciones['pH']
+        pHValor_puntual = mediciones_puntual['pH']
         canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
 
-        conductividadValor_puntual = mediciones['conductividad_electrica']
+        conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
         canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual}")
 
-        temperaturaValor_puntual = mediciones['temperatura']
+        temperaturaValor_puntual = mediciones_puntual['temperatura']
         canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual}")
 
-        indice_puntual = mediciones['indice']
+        indice_puntual = mediciones_puntual['indice']
         canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual}")
 
-        calidad = mediciones['calidad']
+        calidad = mediciones_puntual['calidad']
         canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=calidad)
 
     #Botones
@@ -979,7 +979,7 @@ if __name__ == "__main__":
         image=button_image_1_puntual,
         borderwidth=0,
         highlightthickness=0,
-        command=actualizarDatos, #Hace una lectura
+        command=actualizarDatosPuntual, #Hace una lectura
         relief="flat"
     )
     button_1_puntual.place(
