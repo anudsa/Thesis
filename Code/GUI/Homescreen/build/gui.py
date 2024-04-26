@@ -300,7 +300,7 @@ canvasContinua = Canvas(
 canvasContinua.pack()
 #Imagenes
 image_image_1_continua = PhotoImage(
-    file=relative_to_assets("image_1_continua.png"))
+    file=relative_to_assets("image_1_Continua.png"))
 image_1_continua = canvasContinua.create_image(
     641.0,
     141.0,
@@ -308,7 +308,7 @@ image_1_continua = canvasContinua.create_image(
 )
 
 image_image_2_continua = PhotoImage(
-    file=relative_to_assets("image_2_continua.png"))
+    file=relative_to_assets("image_2_Continua.png"))
 image_2_continua = canvasContinua.create_image(
     641.0,
     253.0,
@@ -316,7 +316,7 @@ image_2_continua = canvasContinua.create_image(
 )
 
 image_image_3_continua = PhotoImage(
-    file=relative_to_assets("image_3_continua.png"))
+    file=relative_to_assets("image_3_Continua.png"))
 image_3_continua = canvasContinua.create_image(
     637.0,
     365.0,
@@ -324,7 +324,7 @@ image_3_continua = canvasContinua.create_image(
 )
 
 image_image_4_continua = PhotoImage(
-    file=relative_to_assets("image_4_continua.png"))
+    file=relative_to_assets("image_4_Continua.png"))
 image_4_continua = canvasContinua.create_image(
     637.0,
     477.0,
@@ -332,7 +332,7 @@ image_4_continua = canvasContinua.create_image(
 )
 
 image_image_5_continua = PhotoImage(
-    file=relative_to_assets("image_5_continua.png"))
+    file=relative_to_assets("image_5_Continua.png"))
 image_5_continua = canvasContinua.create_image(
     637.0,
     589.0,
@@ -340,7 +340,7 @@ image_5_continua = canvasContinua.create_image(
 )
 
 image_image_6_continua = PhotoImage(
-    file=relative_to_assets("image_6_continua.png"))
+    file=relative_to_assets("image_6_Continua.png"))
 image_6_continua = canvasContinua.create_image(
     57.0,
     87.0,
@@ -348,7 +348,7 @@ image_6_continua = canvasContinua.create_image(
 )
 
 image_image_7_continua = PhotoImage(
-    file=relative_to_assets("image_7_continua.png"))
+    file=relative_to_assets("image_7_Continua.png"))
 image_7_continua = canvasContinua.create_image(
     1205.0,
     67.0,
@@ -356,7 +356,7 @@ image_7_continua = canvasContinua.create_image(
 )
 
 image_image_8_continua = PhotoImage(
-    file=relative_to_assets("image_8_continua.png"))
+    file=relative_to_assets("image_8_Continua.png"))
 image_8_continua = canvasContinua.create_image(
     607.0,
     680.0,
