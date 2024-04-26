@@ -659,14 +659,7 @@ if __name__ == "__main__":
     def actualizarDatosContinua():
         #Hace una sola medicion de todas las variables.
         mediciones_continua = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-        print("Tiempo:", mediciones_continua['tiempo'])
-        print("Temperatura:", mediciones_continua['temperatura'])
-        print("Conductividad eléctrica:", mediciones_continua['conductividad_electrica'])
-        print("pH:", mediciones_continua['pH'])
-        print("Oxígeno disuelto:", mediciones_continua['oxigeno_disuelto'])
-        print("Índice:", mediciones_continua['indice'])
-        print("Calidad:", mediciones_continua['calidad'])
-
+        
         pHValor_continua = mediciones_continua['pH']
         canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.4f}")
 
@@ -969,13 +962,6 @@ if __name__ == "__main__":
     def actualizarDatosPuntual():
         #Hace una sola medicion de todas las variables.
         mediciones_puntual = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
-        print("Tiempo:", mediciones_puntual['tiempo'])
-        print("Temperatura:", mediciones_puntual['temperatura'])
-        print("Conductividad eléctrica:", mediciones_puntual['conductividad_electrica'])
-        print("pH:", mediciones_puntual['pH'])
-        print("Oxígeno disuelto:", mediciones_puntual['oxigeno_disuelto'])
-        print("Índice:", mediciones_puntual['indice'])
-        print("Calidad:", mediciones_puntual['calidad'])
 
         pHValor_puntual = mediciones_puntual['pH']
         #canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
