@@ -423,7 +423,27 @@ if __name__ == "__main__":
         calidad_intervalos = mediciones_intervalos['calidad']
         canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=calidad_intervalos)
 
+    tiempo_muestreo_intervalos=1 #Tiempo default de 1 segundo
+    duracion_intervalos=5 #Tiempo default de 5 segundos
 
+    def setTiempos():
+        global tiempo_muestreo_intervalos
+        global duracion_intervalos
+        try:
+            duracion_intervalos = int(entry_1_intervalos.get())
+            tiempo_muestreo_intervalos = int(entry_2_intervalos.get())
+            #Se verifica que el tiempo de muestreo sea menor a la duración
+            if(duracion_intervalos<tiempo_muestreo_intervalos):
+                messagebox.showerror("Error","El tiempo de muestreo debe ser menor a la duración total")  
+            elif(tiempo_muestreo_intervalos==0 or tiempo_muestreo_intervalos==0):
+                messagebox.showerror("Error","Inserte un número válido")
+            #Limita el tiempo máximo a 1 año en ambos casos
+            elif(duracion_intervalos<31536000 and tiempo_muestreo_intervalos<31536000):
+                messagebox.showinfo("Listo",f"La duración es {duracion_intervalos} s y el tiempo de muestreo es de {tiempo_muestreo_intervalos} s.")
+        except ValueError:
+            messagebox.showerror("Error","Inserte datos válidos")
+
+    
     #Botones
     button_image_1_intervalos = PhotoImage(
         file=relative_to_assets("button_1_intervalos.png"))
@@ -479,7 +499,7 @@ if __name__ == "__main__":
         image=button_image_4_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4_intervalos clicked"), #Boton "OK"
+        command=setTiempos, #Boton "OK"
         relief="flat"
     )
     button_4_intervalos.place(
@@ -521,7 +541,7 @@ if __name__ == "__main__":
     )
     entry_1_intervalos.place(
         x=508.0,
-        y=673.0,
+        y=672.0,
         width=63.0,
         height=29.0
     )
@@ -541,7 +561,7 @@ if __name__ == "__main__":
     )
     entry_2_intervalos.place(
         x=810.0,
-        y=670.0,
+        y=671.0,
         width=63.0,
         height=29.0
     )
@@ -707,7 +727,8 @@ if __name__ == "__main__":
                 messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundo.")    
             elif(tiempo_muestreo_continua==0):
                 messagebox.showerror("Error","Inserte un número válido")
-            else:
+            #Limita el tiempo máximo a 30 días
+            elif(tiempo_muestreo_intervalos<2592000):
                 messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundos.")
         except ValueError:
             messagebox.showerror("Error","Inserte un número válido")
