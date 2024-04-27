@@ -456,7 +456,7 @@ if __name__ == "__main__":
                 actualizarDatosContinua()
                 time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
                 tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo
-                
+
     #Regresa a home y detiene mediciones
     def irAHomeBoton():
         global detener_intervalos
@@ -470,7 +470,7 @@ if __name__ == "__main__":
         image=button_image_1_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=actualizarDatosIntervalos, #Medir
+        command=medirEnIntervalos, #Medir
         relief="flat"
     )
     button_1_intervalos.place(
@@ -534,7 +534,7 @@ if __name__ == "__main__":
         image=button_image_5_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: show_frame(Homescreen), #Home 
+        command=detener_intervalos, #Home 
         relief="flat"
     )
     button_5_intervalos.place(
