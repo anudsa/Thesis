@@ -456,9 +456,12 @@ if __name__ == "__main__":
                 actualizarDatosIntervalos()
                 time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
                 tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo
+                if(tiempo_transcurrido>=duracion_intervalos):
+                    messagebox.showinfo("Listo","El intervalo ha terminado.")
+
 
     #Regresa a home y detiene mediciones
-    def irAHomeBoton():
+    def irAHomeIntervalos():
         global detener_intervalos
         detener_intervalos=True
         show_frame(Homescreen)
@@ -534,7 +537,7 @@ if __name__ == "__main__":
         image=button_image_5_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=detener_intervalos, #Home 
+        command=irAHomeIntervalos, #Home 
         relief="flat"
     )
     button_5_intervalos.place(
