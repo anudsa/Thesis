@@ -459,7 +459,6 @@ if __name__ == "__main__":
                 if(tiempo_transcurrido>=duracion_intervalos):
                     messagebox.showinfo("Listo","El intervalo ha terminado.")
 
-
     #Regresa a home y detiene mediciones
     def irAHomeIntervalos():
         global detener_intervalos
