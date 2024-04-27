@@ -748,7 +748,6 @@ if __name__ == "__main__":
     def detenerMedicionesContinua():
         global detener_continua
         detener_continua = True
-        print("Detenido")
 
     #Regresa a home y detiene mediciones
     def irAHomeBoton():
@@ -1130,9 +1129,9 @@ if __name__ == "__main__":
     )
     button_3.place(
         x=825.0,
-        y=328.0,
-        width=391.0,
-        height=98.0
+        y=331.0,
+        width=369.0,
+        height=92.0
     )
     
     # Create images within the canvas
