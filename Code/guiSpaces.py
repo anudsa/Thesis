@@ -1128,7 +1128,7 @@ if __name__ == "__main__":
         relief="flat"
     )
     button_3.place(
-        x=825.0,
+        x=834.0,
         y=331.0,
         width=369.0,
         height=92.0
