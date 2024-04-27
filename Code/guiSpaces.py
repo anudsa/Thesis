@@ -402,6 +402,28 @@ if __name__ == "__main__":
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
+
+    # Se definen las funciones
+    def actualizarDatosIntervalos():
+        #Hace una sola medicion de todas las variables.
+        mediciones_intervalos = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
+        
+        pHValor_continua = mediciones_intervalos['pH']
+        canvas_intervalos.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.4f}")
+
+        conductividadValor_continua = mediciones_intervalos['conductividad_electrica']
+        canvas_intervalos.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f}")
+
+        temperaturaValor_continua = mediciones_intervalos['temperatura']
+        canvas_intervalos.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.4f}")
+
+        indice_continua = mediciones_intervalos['indice']
+        canvas_intervalos.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.4f}")
+
+        calidad_continua = mediciones_intervalos['calidad']
+        canvas_intervalos.itemconfig(tagOrId=calidadText_continua, text=calidad_continua)
+
+
     #Botones
     button_image_1_intervalos = PhotoImage(
         file=relative_to_assets("button_1_intervalos.png"))
@@ -409,7 +431,7 @@ if __name__ == "__main__":
         image=button_image_1_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1_intervalos clicked"),
+        command=actualizarDatosIntervalos, #Medir
         relief="flat"
     )
     button_1_intervalos.place(
@@ -425,7 +447,7 @@ if __name__ == "__main__":
         image=button_image_2_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2_intervalos clicked"),
+        command=lambda: print("button_2_intervalos clicked"), #Graficar
         relief="flat"
     )
     button_2_intervalos.place(
@@ -441,7 +463,7 @@ if __name__ == "__main__":
         image=button_image_3_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3_intervalos clicked"),
+        command=lambda: print("button_3_intervalos clicked"), #Exportar
         relief="flat"
     )
     button_3_intervalos.place(
@@ -457,7 +479,7 @@ if __name__ == "__main__":
         image=button_image_4_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4_intervalos clicked"),
+        command=lambda: print("button_4_intervalos clicked"), #Boton "OK"
         relief="flat"
     )
     button_4_intervalos.place(
@@ -473,7 +495,7 @@ if __name__ == "__main__":
         image=button_image_5_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: show_frame(Homescreen),  #Home
+        command=lambda: show_frame(Homescreen), #Home 
         relief="flat"
     )
     button_5_intervalos.place(
@@ -655,7 +677,7 @@ if __name__ == "__main__":
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
-# Se definen las funciones
+    # Se definen las funciones
     def actualizarDatosContinua():
         #Hace una sola medicion de todas las variables.
         mediciones_continua = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
