@@ -470,7 +470,7 @@ if __name__ == "__main__":
         image=button_image_1_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=medirEnIntervalos, #Medir
+        command=lambda:threading.Thread(target=medirEnIntervalos).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1_intervalos.place(
