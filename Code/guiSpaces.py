@@ -436,7 +436,7 @@ if __name__ == "__main__":
             if(duracion_intervalos<tiempo_muestreo_intervalos):
                 messagebox.showerror("Error","El tiempo de muestreo debe ser menor a la duración total")  
             elif(tiempo_muestreo_intervalos==0 or tiempo_muestreo_intervalos==0):
-                messagebox.showerror("Error","Inserte un número válido")
+                messagebox.showerror("Error","Inserte un valor mayor a cero")
             #Limita el tiempo máximo a 1 año en ambos casos
             elif(duracion_intervalos<31536000 and tiempo_muestreo_intervalos<31536000):
                 messagebox.showinfo("Listo",f"La duración total es {duracion_intervalos}s y el tiempo de muestreo es de {tiempo_muestreo_intervalos}s.")
@@ -738,9 +738,11 @@ if __name__ == "__main__":
         global detener_continua
         detener_continua = False
         global tiempo_muestreo_continua
-        while not detener_continua:
-            actualizarDatosContinua()
-            time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
+        #If que limita el tiemo
+        if (tiempo_muestreo_continua>0 and tiempo_muestreo_continua<2592000):
+            while not detener_continua:
+                actualizarDatosContinua()
+                time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
 
     #Detiene la medicio continua
     def detenerMedicionesContinua():
