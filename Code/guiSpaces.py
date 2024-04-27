@@ -451,7 +451,7 @@ if __name__ == "__main__":
         global duracion_intervalos
         global tiempo_muestreo_intervalos
         #If que limita el tiempo y verifica que la duración sea mayor que el muestreo
-        if (duracion_intervalos>=temperaturaText_intervalos and tiempo_muestreo_intervalos>0 and duracion_intervalos>0 and tiempo_muestreo_intervalos<31536000 and duracion_intervalos<31536000):
+        if (duracion_intervalos>=tiempo_muestreo_intervalos and tiempo_muestreo_intervalos>0 and duracion_intervalos>0 and tiempo_muestreo_intervalos<31536000 and duracion_intervalos<31536000):
             while (tiempo_transcurrido<=duracion_intervalos and not detener_intervalos):
                 actualizarDatosIntervalos()
                 time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
