@@ -430,8 +430,8 @@ if __name__ == "__main__":
         global tiempo_muestreo_intervalos
         global duracion_intervalos
         try:
-            duracion_intervalos = int(entry_1_intervalos.get())
-            tiempo_muestreo_intervalos = int(entry_2_intervalos.get())
+            tiempo_muestreo_intervalos = int(entry_1_intervalos.get())
+            duracion_intervalos = int(entry_2_intervalos.get())
             #Se verifica que el tiempo de muestreo sea menor a la duración
             if(duracion_intervalos<tiempo_muestreo_intervalos):
                 messagebox.showerror("Error","El tiempo de muestreo debe ser menor a la duración total")  
@@ -439,7 +439,7 @@ if __name__ == "__main__":
                 messagebox.showerror("Error","Inserte un número válido")
             #Limita el tiempo máximo a 1 año en ambos casos
             elif(duracion_intervalos<31536000 and tiempo_muestreo_intervalos<31536000):
-                messagebox.showinfo("Listo",f"La duración es {duracion_intervalos} s y el tiempo de muestreo es de {tiempo_muestreo_intervalos} s.")
+                messagebox.showinfo("Listo",f"La duración total es {duracion_intervalos}s y el tiempo de muestreo es de {tiempo_muestreo_intervalos}s.")
         except ValueError:
             messagebox.showerror("Error","Inserte datos válidos")
 
