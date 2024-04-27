@@ -453,11 +453,12 @@ if __name__ == "__main__":
         #If que limita el tiempo y verifica que la duración sea mayor que el muestreo
         if (duracion_intervalos>=tiempo_muestreo_intervalos and tiempo_muestreo_intervalos>0 and duracion_intervalos>0 and tiempo_muestreo_intervalos<31536000 and duracion_intervalos<31536000):
             while (tiempo_transcurrido<=duracion_intervalos and not detener_intervalos):
+                if(tiempo_transcurrido>=duracion_intervalos):
+                    messagebox.showinfo("Listo","El intervalo ha terminado.")
                 actualizarDatosIntervalos()
                 time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
                 tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo
-                if(tiempo_transcurrido>=duracion_intervalos):
-                    messagebox.showinfo("Listo","El intervalo ha terminado.")
+
 
     #Regresa a home y detiene mediciones
     def irAHomeIntervalos():
