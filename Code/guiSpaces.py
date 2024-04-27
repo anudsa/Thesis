@@ -443,6 +443,25 @@ if __name__ == "__main__":
         except ValueError:
             messagebox.showerror("Error","Inserte datos válidos")
 
+    detener_intervalos=False
+    #Mide continuamente hasta que se termina intervalo
+    def medirEnIntervalos():
+        global detener_intervalos
+        tiempo_transcurrido=0
+        global duracion_intervalos
+        global tiempo_muestreo_intervalos
+        #If que limita el tiempo y verifica que la duración sea mayor que el muestreo
+        if (duracion_intervalos>=temperaturaText_intervalos and tiempo_muestreo_continua>0 and duracion_intervalos>0 and tiempo_muestreo_continua<2592000 and duracion_intervalos<2592000):
+            while (tiempo_transcurrido<=duracion_intervalos and not detener_intervalos):
+                actualizarDatosContinua()
+                time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
+                tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo
+                
+    #Regresa a home y detiene mediciones
+    def irAHomeBoton():
+        global detener_intervalos
+        detener_intervalos=True
+        show_frame(Homescreen)
     
     #Botones
     button_image_1_intervalos = PhotoImage(
