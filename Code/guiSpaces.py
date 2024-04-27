@@ -445,6 +445,7 @@ if __name__ == "__main__":
 
     detener_intervalos=False
     #Mide continuamente hasta que se termina intervalo
+    """
     def medirEnIntervalos():
         global detener_intervalos        
         global duracion_intervalos
@@ -457,10 +458,26 @@ if __name__ == "__main__":
             while (tiempo_transcurrido<duracion_intervalos and not detener_intervalos):
                 actualizarDatosIntervalos()
                 time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
-                tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo
-            if(tiempo_transcurrido>=duracion_intervalos):
-                    messagebox.showinfo("Listo","El intervalo ha terminado.")
-
+                tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo    
+            messagebox.showinfo("Listo","El intervalo ha terminado.")
+    """
+    def medirEnIntervalos():
+        global detener_intervalos        
+        global duracion_intervalos
+        global tiempo_muestreo_intervalos
+        detener_intervalos=False
+        tiempo_transcurrido=0
+        # Verifica las condiciones de duración y muestreo
+        if (duracion_intervalos >= tiempo_muestreo_intervalos and tiempo_muestreo_intervalos > 0 and duracion_intervalos > 0 and tiempo_muestreo_intervalos < 31536000 and duracion_intervalos < 31536000):
+            # Tiempo de inicio del intervalo
+            start_time = time.time()
+            # Tiempo de finalización del intervalo
+            end_time = start_time + duracion_intervalos
+            # Loop para medir continuamente hasta que se alcanza la duración
+            while (time.time() < end_time and not detener_intervalos):
+                actualizarDatosIntervalos()
+                time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segundos
+            messagebox.showinfo("Listo","El intervalo ha terminado.")
 
     #Regresa a home y detiene mediciones
     def irAHomeIntervalos():
