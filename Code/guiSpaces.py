@@ -435,7 +435,7 @@ if __name__ == "__main__":
             #Se verifica que el tiempo de muestreo sea menor a la duración
             if(duracion_intervalos<tiempo_muestreo_intervalos):
                 messagebox.showerror("Error","El tiempo de muestreo debe ser menor a la duración total")  
-            elif(tiempo_muestreo_intervalos==0 or tiempo_muestreo_intervalos==0):
+            elif(tiempo_muestreo_intervalos==0 or duracion_intervalos==0):
                 messagebox.showerror("Error","Inserte un valor mayor a cero")
             #Limita el tiempo máximo a 1 año en ambos casos
             elif(duracion_intervalos<31536000 and tiempo_muestreo_intervalos<31536000):
@@ -444,40 +444,25 @@ if __name__ == "__main__":
             messagebox.showerror("Error","Inserte datos válidos")
 
     detener_intervalos=False
-    #Mide continuamente hasta que se termina intervalo
-    """
-    def medirEnIntervalos():
-        global detener_intervalos        
-        global duracion_intervalos
-        global tiempo_muestreo_intervalos
-        detener_intervalos=False
-        tiempo_transcurrido=0
 
-        #If que limita el tiempo y verifica que la duración sea mayor que el muestreo
-        if (duracion_intervalos>=tiempo_muestreo_intervalos and tiempo_muestreo_intervalos>0 and duracion_intervalos>0 and tiempo_muestreo_intervalos<31536000 and duracion_intervalos<31536000):
-            while (tiempo_transcurrido<duracion_intervalos and not detener_intervalos):
-                actualizarDatosIntervalos()
-                time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segs.
-                tiempo_transcurrido+=tiempo_muestreo_intervalos #Actualiza la suma total de tiempo    
-            messagebox.showinfo("Listo","El intervalo ha terminado.")
-    """
-    def medirEnIntervalos():
-        global detener_intervalos        
-        global duracion_intervalos
-        global tiempo_muestreo_intervalos
+    def medirEnIntervalos(tiempo_muestreo_intervalos, duracion_intervalos):
+        if duracion_intervalos < tiempo_muestreo_intervalos or duracion_intervalos <=0 or tiempo_muestreo_intervalos <= 0:
+            messagebox.showerror("Error","Inserte datos válidos")
+            return
+        global detener_intervalos
         detener_intervalos=False
-        tiempo_transcurrido=0
-        # Verifica las condiciones de duración y muestreo
-        if (duracion_intervalos >= tiempo_muestreo_intervalos and tiempo_muestreo_intervalos > 0 and duracion_intervalos > 0 and tiempo_muestreo_intervalos < 31536000 and duracion_intervalos < 31536000):
-            # Tiempo de inicio del intervalo
-            start_time = time.time()
-            # Tiempo de finalización del intervalo
-            end_time = start_time + duracion_intervalos
-            # Loop para medir continuamente hasta que se alcanza la duración
-            while (time.time() < end_time and not detener_intervalos):
-                actualizarDatosIntervalos()
-                time.sleep(tiempo_muestreo_intervalos)  # Tiempo de muestreo en segundos
-            messagebox.showinfo("Listo","El intervalo ha terminado.")
+        tiempo_inicio = time.time()
+        tiempo_transcurrido = 0
+        print(f"tm: {tiempo_muestreo_intervalos} d: {duracion_intervalos}")
+        for i in range(duracion_intervalos // tiempo_muestreo_intervalos + 1):
+            print("Hola, estoy midiendo")
+            tiempo_transcurrido = time.time() - tiempo_inicio
+            print("Tiempo transcurrido:", tiempo_transcurrido)
+            if tiempo_transcurrido >= duracion_intervalos or detener_intervalos==True:
+                break
+            time.sleep(tiempo_muestreo_intervalos)
+        print("Tiempo total:", tiempo_transcurrido)
+        messagebox.showinfo("Listo","El intervalo ha terminado.")
 
     #Regresa a home y detiene mediciones
     def irAHomeIntervalos():
@@ -492,7 +477,7 @@ if __name__ == "__main__":
         image=button_image_1_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda:threading.Thread(target=medirEnIntervalos).start(), # Se crea un hilo dedicado a medir continuamente
+        command=lambda: threading.Thread(target=lambda: medirEnIntervalos(tiempo_muestreo_intervalos, duracion_intervalos)).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1_intervalos.place(
