@@ -409,19 +409,19 @@ if __name__ == "__main__":
         mediciones_intervalos = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
         
         pHValor_intervalos = mediciones_intervalos['pH']
-        canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
+        #canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
 
         conductividadValor_intervalos = mediciones_intervalos['conductividad_electrica']
-        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
+        #canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
 
         temperaturaValor_intervalos = mediciones_intervalos['temperatura']
-        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
+        #canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
 
         indice_intervalos = mediciones_intervalos['indice']
-        canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
+        #canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
 
         calidad_intervalos = mediciones_intervalos['calidad']
-        canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=calidad_intervalos)
+        #canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=calidad_intervalos)
 
     tiempo_muestreo_intervalos=1 #Tiempo default de 1 segundo
     duracion_intervalos=5 #Tiempo default de 5 segundos
