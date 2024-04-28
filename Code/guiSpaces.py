@@ -453,13 +453,18 @@ if __name__ == "__main__":
         detener_intervalos=False
         offset_inicial=0
         tiempo_transcurrido = 0
+        print("Tiempo transcurrido:", tiempo_transcurrido)
         tiempo_inicio = time.time()
-        for i in range(duracion_intervalos // tiempo_muestreo_intervalos +1):
+        actualizarDatosIntervalos()
+        tiempo_transcurrido = time.time() - tiempo_inicio
+        offset_inicial=tiempo_transcurrido
+        time.sleep(tiempo_muestreo_intervalos-offset_inicial)
+        for i in range(duracion_intervalos // tiempo_muestreo_intervalos):
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
             print("Tiempo transcurrido:", tiempo_transcurrido)
-            if  tiempo_transcurrido<=0.9:
-                offset_inicial=tiempo_transcurrido
+            #if  tiempo_transcurrido<=0.9:
+             #   offset_inicial=tiempo_transcurrido
             if  detener_intervalos==True:
                 break
             time.sleep(tiempo_muestreo_intervalos-offset_inicial)
