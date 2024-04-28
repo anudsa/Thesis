@@ -460,7 +460,7 @@ if __name__ == "__main__":
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
             print("Tiempo transcurrido:", tiempo_transcurrido)
-            if tiempo_transcurrido >= duracion_intervalos or detener_intervalos==True:
+            if  detener_intervalos==True:
                 break
             time.sleep(tiempo_muestreo_intervalos)
         print("Tiempo total:", tiempo_transcurrido)
