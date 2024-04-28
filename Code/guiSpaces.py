@@ -458,7 +458,6 @@ if __name__ == "__main__":
         actualizarDatosIntervalos()
         tiempo_transcurrido = time.time() - tiempo_inicio
         offset_inicial=tiempo_transcurrido
-        time.sleep(tiempo_muestreo_intervalos-offset_inicial)
         for i in range(duracion_intervalos // tiempo_muestreo_intervalos):
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
