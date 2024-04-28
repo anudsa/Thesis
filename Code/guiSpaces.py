@@ -189,6 +189,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     mediciones['indice'] = indice
     calidad=WQI.interpretacion(indice)
     mediciones['calidad'] = calidad
+    addData(mediciones)
     return mediciones
 
 
@@ -471,7 +472,7 @@ if __name__ == "__main__":
         global detener_intervalos
         detener_intervalos=True
         show_frame(Homescreen)
-    
+        printAllLectures()
     #Botones
     button_image_1_intervalos = PhotoImage(
         file=relative_to_assets("button_1_intervalos.png"))
@@ -778,9 +779,11 @@ if __name__ == "__main__":
         detener_continua = True
 
     #Regresa a home y detiene mediciones
-    def irAHomeBoton():
+    def irAHomeContinua():
         detenerMedicionesContinua()
         show_frame(Homescreen)
+        printAllLectures()
+        
 
     #Botones
     button_image_1_continua = PhotoImage(
@@ -875,7 +878,7 @@ if __name__ == "__main__":
         image=button_image_6_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=irAHomeBoton,  #Home
+        command=irAHomeContinua,  #Home
         relief="flat"
     )
     button_6_continua.place(
@@ -1051,6 +1054,11 @@ if __name__ == "__main__":
 
         calidad = mediciones_puntual['calidad']
         canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=calidad)
+
+    #Regresa a home y detiene mediciones
+    def irAHomePuntual():
+        show_frame(Homescreen)
+        printAllLectures()
 
     #Botones
     button_image_1_puntual = PhotoImage(
