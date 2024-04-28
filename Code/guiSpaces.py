@@ -409,19 +409,19 @@ if __name__ == "__main__":
         mediciones_intervalos = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
         
         pHValor_intervalos = mediciones_intervalos['pH']
-        #canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
 
         conductividadValor_intervalos = mediciones_intervalos['conductividad_electrica']
-        #canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
 
         temperaturaValor_intervalos = mediciones_intervalos['temperatura']
-        #canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
 
         indice_intervalos = mediciones_intervalos['indice']
-        #canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
 
         calidad_intervalos = mediciones_intervalos['calidad']
-        #canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=calidad_intervalos)
+        canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=calidad_intervalos)
 
     tiempo_muestreo_intervalos=1 #Tiempo default de 1 segundo
     duracion_intervalos=5 #Tiempo default de 5 segundos
@@ -453,17 +453,13 @@ if __name__ == "__main__":
         detener_intervalos=False
         offset_inicial=0
         tiempo_transcurrido = 0
-        print("Tiempo transcurrido:", tiempo_transcurrido)
         tiempo_inicio = time.time()
-        actualizarDatosIntervalos()
-        tiempo_transcurrido = time.time() - tiempo_inicio
-        offset_inicial=tiempo_transcurrido
-        for i in range(duracion_intervalos // tiempo_muestreo_intervalos):
+        for i in range(duracion_intervalos // tiempo_muestreo_intervalos +1):
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
+            if  tiempo_transcurrido<=0.9:
+                offset_inicial=tiempo_transcurrido
             print("Tiempo transcurrido:", tiempo_transcurrido)
-            #if  tiempo_transcurrido<=0.9:
-             #   offset_inicial=tiempo_transcurrido
             if  detener_intervalos==True:
                 break
             time.sleep(tiempo_muestreo_intervalos-offset_inicial)
