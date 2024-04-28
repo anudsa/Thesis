@@ -455,7 +455,7 @@ if __name__ == "__main__":
         tiempo_transcurrido = 0
         print(f"tm: {tiempo_muestreo_intervalos} d: {duracion_intervalos}")
         for i in range(duracion_intervalos // tiempo_muestreo_intervalos + 1):
-            print("Hola, estoy midiendo")
+            actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
             print("Tiempo transcurrido:", tiempo_transcurrido)
             if tiempo_transcurrido >= duracion_intervalos or detener_intervalos==True:
