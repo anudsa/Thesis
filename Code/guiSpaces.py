@@ -451,9 +451,9 @@ if __name__ == "__main__":
             return
         global detener_intervalos
         detener_intervalos=False
-        tiempo_inicio = time.time()
         tiempo_transcurrido = 0
         print(f"tm: {tiempo_muestreo_intervalos} d: {duracion_intervalos}")
+        tiempo_inicio = time.time()
         for i in range(duracion_intervalos // tiempo_muestreo_intervalos + 1):
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
