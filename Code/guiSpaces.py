@@ -459,7 +459,7 @@ if __name__ == "__main__":
             tiempo_transcurrido = time.time() - tiempo_inicio
             if  tiempo_transcurrido<=0.9:
                 offset_inicial=tiempo_transcurrido
-            print("Tiempo transcurrido:", tiempo_transcurrido)
+            #print("Tiempo transcurrido:", tiempo_transcurrido)
             if  detener_intervalos==True:
                 break
             time.sleep(tiempo_muestreo_intervalos-offset_inicial)
