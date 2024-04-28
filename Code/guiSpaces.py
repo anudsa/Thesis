@@ -452,17 +452,14 @@ if __name__ == "__main__":
         global detener_intervalos
         detener_intervalos=False
         tiempo_transcurrido = 0
-        print(f"tm: {tiempo_muestreo_intervalos} d: {duracion_intervalos}")
-        actualizarDatosIntervalos()
-        print("Tiempo transcurrido:", tiempo_transcurrido)
         tiempo_inicio = time.time()
-        for i in range(duracion_intervalos // tiempo_muestreo_intervalos):
+        for i in range(duracion_intervalos // tiempo_muestreo_intervalos +1):
             actualizarDatosIntervalos()
             tiempo_transcurrido = time.time() - tiempo_inicio
             print("Tiempo transcurrido:", tiempo_transcurrido)
             if  detener_intervalos==True:
                 break
-            time.sleep(tiempo_muestreo_intervalos)
+            time.sleep(tiempo_muestreo_intervalos-0.8)
         print("Tiempo total:", tiempo_transcurrido)
         messagebox.showinfo("Listo","El intervalo ha terminado.")
 
