@@ -178,6 +178,7 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
                 potencialHidrogeno = float(line.decode('utf-8'))
                 mediciones['pH'] = potencialHidrogeno
             except ValueError:
+                print("valueerror2")
                 continue
 
     #Cálculo del índice
