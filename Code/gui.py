@@ -97,7 +97,6 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     'temperatura': 0,
     'conductividad_electrica': 0,
     'pH': 0,
-    'oxigeno_disuelto': 0, 
     'indice': 0,
     'calidad': None
     }
@@ -182,10 +181,8 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
                 continue
 
     #Cálculo del índice
-    #valor de OD de prueba
-    oxigenoDisuelto=6
-    P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno,oxigenoDisuelto)
-    indice =WQI.calculo(P,[1,2,3,4])
+    P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno)
+    indice =WQI.calculo(P,[1,2,3])
     mediciones['indice'] = indice
     calidad=WQI.interpretacion(indice)
     mediciones['calidad'] = calidad
@@ -210,9 +207,9 @@ def printAllLectures():
 #Function to add data
 def addData(Data):
     # Create the INSERT query
-    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad_electrica, oxigeno_disuelto) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO lecturas (tiempo, temperatura, pH, conductividad, indice, calidad) VALUES (%s, %s, %s, %s, %s, %s)"
     # Execute the INSERT query with the values
-    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['oxigeno_disuelto']))
+    cursor.execute(insert_query, (Data['tiempo'], Data['temperatura'], Data['pH'], Data['conductividad_electrica'], Data['indice'], Data['calidad']))
     # Commit the changes to the database
     mysql_db.commit()
 
@@ -1085,7 +1082,7 @@ if __name__ == "__main__":
         image=button_image_2_puntual,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: show_frame(Homescreen),  #Home
+        command=irAHomePuntual,  #Home
         relief="flat"
     )
     button_2_puntual.place(
