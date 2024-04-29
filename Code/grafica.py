@@ -13,33 +13,33 @@ cursor = mysql_db.cursor()
 
 def getVariables():
     # Execute the SELECT query
-    cursor.execute("SELECT tiempo,temperatura, pH, conductividad_electrica, oxigeno_disuelto FROM lecturas")
+    cursor.execute("SELECT tiempo, temperatura, pH, conductividad, indice FROM lecturas")
     # Fetch all the rows
     rows = cursor.fetchall()
     #list comprehension to retrieve values
     tiempo = [row[0].strftime("%H:%M:%S") for row in rows]
-    temp = [float(row[1]) for row in rows]
+    temperatura = [float(row[1]) for row in rows]
     pH = [float(row[2]) for row in rows]
-    EC = [float(row[3]) for row in rows]
-    ox = [float(row[4]) for row in rows]
-    return tiempo,temp, pH, EC, ox
+    conductividad = [float(row[3]) for row in rows]
+    indice = [float(row[4]) for row in rows]
+    return tiempo,temperatura, pH, conductividad, indice
 
 def printVariables():
     print("Tiempo",tiempo)
-    print("Temp = ", temp)
-    for temperature in temp:
+    print("temperatura = ", temperatura)
+    for temperature in temperatura:
         print(temperature)
     print("pH= ", pH)
-    print("EC= ", EC)
-    print("Ox= ", ox)
+    print("conductividad= ", conductividad)
+    print("indice= ", indice)
 
 def plotVariables():
     plt.figure(figsize=(12,8))
     plt.subplot(2,2,1)
-    plt.scatter(tiempo, temp)
+    plt.scatter(tiempo, temperatura)
     plt.xlabel("Tiempo")
     plt.ylabel("Temperatura")
-    plt.title("temp graph")
+    plt.title("temperatura graph")
     
     plt.subplot(2,2,2)
     plt.scatter(tiempo, pH)
@@ -48,21 +48,21 @@ def plotVariables():
     plt.title("pH graph")
 
     plt.subplot(2,2,3)
-    plt.scatter(tiempo, EC)
+    plt.scatter(tiempo, conductividad)
     plt.xlabel("Tiempo")
-    plt.ylabel("EC")
-    plt.title("EC graph")
+    plt.ylabel("conductividad")
+    plt.title("conductividad graph")
 
     plt.subplot(2,2,4)
-    plt.scatter(tiempo, ox)
+    plt.scatter(tiempo, indice)
     plt.xlabel("Tiempo")
-    plt.ylabel("ox")
-    plt.title("ox graph")
+    plt.ylabel("indice")
+    plt.title("indice graph")
 
     plt.show()
     plt.pause(10)
 
-tiempo,temp, pH, EC, ox = getVariables()
+tiempo,temperatura, pH, conductividad, indice = getVariables()
 
 if __name__ == "__main__":
     printVariables()
