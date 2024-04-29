@@ -32,9 +32,7 @@ def parametrizacion(conductividad,temp,pH):
 
 def calculo(P,W):
     Numerador =  sum([(P[i]*W[i]) for i in range(3)]) #suma los productos de p(i) por w(i)
-    print(Numerador)
     Denominador = sum(P) #Suma los elementos de la lista P
-    print(Denominador)
     WQI=Numerador/Denominador
     return WQI
 # The calculated WQIs were then classified according to
