@@ -485,6 +485,8 @@ if __name__ == "__main__":
     
     #Funcion para graficar
     def graficarIntervalos():
+        global id_inicial_intervalos
+        global id_final_intervalos
         grafica.graficarParametros(id_inicial_intervalos,id_final_intervalos)
 
     #Funcion para exportar a Excel
@@ -794,7 +796,7 @@ if __name__ == "__main__":
                 actualizarDatosContinua()
                 time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
             messagebox.showinfo("","Detenido")
-            
+
     #Detiene la medicion continua
     def detenerMedicionesContinua():
         global detener_continua
@@ -805,6 +807,8 @@ if __name__ == "__main__":
 
     #Funcion para graficar
     def graficarcontinua():
+        global id_inicial_continua
+        global id_final_continua
         grafica.graficarParametros(id_inicial_continua,id_final_continua)
 
     #Funcion para exportar a Excel
