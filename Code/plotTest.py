@@ -36,6 +36,7 @@ def printVariables(tiempo,temperatura,pH,conductividad,indice):
 def plotVariables(tiempo,temperatura, pH, conductividad, indice):
     plt.figure(figsize=(12,8))
     plt.subplot(2,2,1)
+    plt.subplots_adjust(hspace=0.5)
     plt.scatter(tiempo, temperatura)
     plt.xlabel("Tiempo")
     plt.ylabel("Temperatura")
@@ -60,7 +61,7 @@ def plotVariables(tiempo,temperatura, pH, conductividad, indice):
     plt.title("indice ")
 
     plt.show()
-    plt.pause(10)
+    #plt.pause(10)
 
 
 #Function to print all date from the table lecturas
