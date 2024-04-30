@@ -14,7 +14,7 @@ import WQIFormula as WQI
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 import threading	
-
+import export
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/build/assets/frame0")
@@ -22,7 +22,6 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/bui
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 	
-
 #Database connection
 mysql_db = mysql.connector.connect(
     host="localhost",
@@ -32,6 +31,7 @@ mysql_db = mysql.connector.connect(
 )
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
+
 #function to get temperatures
 def getTemperatures():
     allTemps = list()
@@ -202,6 +202,16 @@ def printAllLectures():
     for row in rows:
         values = [str(value) if not isinstance(value, (int, float)) else value for value in row]
         print(values)
+
+def leeUltimoid():
+    # Consulta para encontrar el ID de la última fila de las lecturas
+    cursor.execute("SELECT MAX(id) FROM lecturas")
+    # Obtener el resultado
+    resultado = cursor.fetchone()
+    # Extraer el ID del resultado
+    ultimo_id = int(resultado[0])
+    return ultimo_id
+
 
 #Function to add data
 def addData(Data):
@@ -402,7 +412,7 @@ if __name__ == "__main__":
 
     # Se definen las funciones
     def actualizarDatosIntervalos():
-        #Hace una sola medicion de todas las variables.
+        #Hace una sola medicion de todas las variables (la cual se guarda en la base de datos)
         mediciones_intervalos = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
         
         pHValor_intervalos = mediciones_intervalos['pH']
@@ -441,11 +451,14 @@ if __name__ == "__main__":
             messagebox.showerror("Error","Inserte datos válidos")
 
     detener_intervalos=False
-
+    
     def medirEnIntervalos(tiempo_muestreo_intervalos, duracion_intervalos):
         if duracion_intervalos < tiempo_muestreo_intervalos or duracion_intervalos <=0 or tiempo_muestreo_intervalos <= 0:
             messagebox.showerror("Error","Inserte datos válidos")
             return
+        global id_inicial_intervalos
+        id_inicial_intervalos=leeUltimoid()+1
+        global id_final_intervalos
         global detener_intervalos
         detener_intervalos=False
         offset_inicial=0
@@ -461,6 +474,7 @@ if __name__ == "__main__":
                 break
             time.sleep(tiempo_muestreo_intervalos-offset_inicial)
         print("Tiempo total:", tiempo_transcurrido)
+        id_final_intervalos=leeUltimoid()
         messagebox.showinfo("Listo","El intervalo ha terminado.")
 
     #Regresa a home y detiene mediciones
@@ -469,6 +483,12 @@ if __name__ == "__main__":
         detener_intervalos=True
         show_frame(Homescreen)
         printAllLectures()
+
+    #Funcion para exportar a Excel
+    def exportarIntervalos():
+        export.exportarExcel(id_inicial_intervalos,id_final_intervalos)
+        messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
+
     #Botones
     button_image_1_intervalos = PhotoImage(
         file=relative_to_assets("button_1_intervalos.png"))
@@ -508,7 +528,7 @@ if __name__ == "__main__":
         image=button_image_3_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3_intervalos clicked"), #Exportar
+        command=exportarIntervalos, #Exportar
         relief="flat"
     )
     button_3_intervalos.place(
@@ -757,9 +777,11 @@ if __name__ == "__main__":
                 messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundos.")
         except ValueError:
             messagebox.showerror("Error","Inserte un número válido")
-
+    
     #Mide continuamente hasta que se presiona el boton detener  
-    def medirContinuamenteContinua():
+    def medirContinuamente():
+        global id_inicial_continua 
+        id_inicial_continua = leeUltimoid()+1
         global detener_continua
         detener_continua = False
         global tiempo_muestreo_continua
@@ -769,10 +791,17 @@ if __name__ == "__main__":
                 actualizarDatosContinua()
                 time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
 
-    #Detiene la medicio continua
+    #Detiene la medicion continua
     def detenerMedicionesContinua():
         global detener_continua
         detener_continua = True
+        global id_final_continua
+        id_final_continua = leeUltimoid
+
+    #Funcion para exportar a Excel
+    def exportarContinua():
+        export.exportarExcel(id_inicial_continua,id_final_continua)
+        messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
 
     #Regresa a home y detiene mediciones
     def irAHomeContinua():
@@ -789,7 +818,7 @@ if __name__ == "__main__":
         image=button_image_1_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda:threading.Thread(target=medirContinuamenteContinua).start(), # Se crea un hilo dedicado a medir continuamente
+        command=lambda:threading.Thread(target=medirContinuamente).start(), # Se crea un hilo dedicado a medir continuamente
         relief="flat"
     )
     button_1_continua.place(
@@ -823,7 +852,7 @@ if __name__ == "__main__":
         image=button_image_3_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3_continua clicked"),
+        command=lambda: print("button_3_continua clicked"), #Graficar
         relief="flat"
     )
     button_3_continua.place(
@@ -840,7 +869,7 @@ if __name__ == "__main__":
         image=button_image_4_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4_continua clicked"),
+        command=exportarContinua, #Exportar
         relief="flat"
     )
     button_4_continua.place(

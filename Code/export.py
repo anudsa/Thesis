@@ -28,6 +28,7 @@ def exportarExcel(id_inicial, id_final):
     # Abre la carpeta en el explorador de archivos por defecto en Linux
     subprocess.run(["xdg-open", ruta_carpeta])
 
+    return True
     # Abre la carpeta en el Finder en macOS
     #subprocess.run(["open", ruta_carpeta])
 
