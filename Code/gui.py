@@ -488,6 +488,7 @@ if __name__ == "__main__":
         global id_inicial_intervalos
         global id_final_intervalos
         grafica.graficarParametros(id_inicial_intervalos,id_final_intervalos)
+        print(f"I used ids: {id_inicial_intervalos} and {id_final_intervalos}")
 
     #Funcion para exportar a Excel
     def exportarIntervalos():
@@ -810,6 +811,7 @@ if __name__ == "__main__":
         global id_inicial_continua
         global id_final_continua
         grafica.graficarParametros(id_inicial_continua,id_final_continua)
+        print(f"I used ids: {id_inicial_continua} and {id_final_continua}")
 
     #Funcion para exportar a Excel
     def exportarContinua():

@@ -41,24 +41,28 @@ def plotVariables(tiempo,temperatura, pH, conductividad, indice):
     plt.xlabel("Tiempo")
     plt.ylabel("Temperatura")
     plt.title("temperatura ")
-    
+    plt.xticks(rotation='vertical')
+
     plt.subplot(2,2,2)
     plt.scatter(tiempo, pH)
     plt.xlabel("Tiempo")
     plt.ylabel("pH")
     plt.title("pH ")
+    plt.xticks(rotation='vertical')
 
     plt.subplot(2,2,3)
     plt.scatter(tiempo, conductividad)
     plt.xlabel("Tiempo")
     plt.ylabel("conductividad")
     plt.title("conductividad ")
+    plt.xticks(rotation='vertical')
 
     plt.subplot(2,2,4)
     plt.scatter(tiempo, indice)
     plt.xlabel("Tiempo")
     plt.ylabel("indice")
     plt.title("indice ")
+    plt.xticks(rotation='vertical')
 
     plt.show()
     #plt.pause(10)
