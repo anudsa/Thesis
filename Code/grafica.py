@@ -1,7 +1,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt  
 import mysql.connector
-import decimal  # Import the decimal module
+
 mysql_db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -27,8 +27,6 @@ def getVariables(id_inicial,id_final):
 def printVariables(tiempo,temperatura,pH,conductividad,indice):
     print("Tiempo",tiempo)
     print("temperatura = ", temperatura)
-    for temperature in temperatura:
-        print(temperature)
     print("pH= ", pH)
     print("conductividad= ", conductividad)
     print("indice= ", indice)
@@ -42,6 +40,8 @@ def plotVariables(tiempo,temperatura, pH, conductividad, indice):
     plt.ylabel("Temperatura")
     plt.title("temperatura ")
     plt.xticks(rotation='vertical')
+    
+    plt.subplots_adjust(bottom=0.15)
 
     plt.subplot(2,2,2)
     plt.scatter(tiempo, pH)
