@@ -796,7 +796,7 @@ if __name__ == "__main__":
         detener_continua = True
         global id_final_continua
         id_final_continua = leeUltimoid()
-        messagebox.showinfo("Detenido","Detenido")
+        messagebox.showinfo("","Detenido")
 
     #Funcion para exportar a Excel
     def exportarContinua():
