@@ -11,9 +11,9 @@ mysql_db = mysql.connector.connect(
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
 
-def getVariables():
+def getVariables(id_inicial,id_final):
     # Execute the SELECT query
-    cursor.execute("SELECT tiempo, temperatura, pH, conductividad, indice FROM lecturas")
+    cursor.execute(f"SELECT tiempo, temperatura, pH, conductividad, indice FROM lecturas WHERE id BETWEEN {id_inicial} AND {id_final}")
     # Fetch all the rows
     rows = cursor.fetchall()
     #list comprehension to retrieve values
@@ -24,7 +24,7 @@ def getVariables():
     indice = [float(row[4]) for row in rows]
     return tiempo,temperatura, pH, conductividad, indice
 
-def printVariables():
+def printVariables(tiempo,temperatura,pH,conductividad,indice):
     print("Tiempo",tiempo)
     print("temperatura = ", temperatura)
     for temperature in temperatura:
@@ -33,37 +33,57 @@ def printVariables():
     print("conductividad= ", conductividad)
     print("indice= ", indice)
 
-def plotVariables():
+def plotVariables(tiempo,temperatura, pH, conductividad, indice):
     plt.figure(figsize=(12,8))
     plt.subplot(2,2,1)
+    plt.subplots_adjust(hspace=0.5)
     plt.scatter(tiempo, temperatura)
     plt.xlabel("Tiempo")
     plt.ylabel("Temperatura")
-    plt.title("temperatura graph")
+    plt.title("temperatura ")
     
     plt.subplot(2,2,2)
     plt.scatter(tiempo, pH)
     plt.xlabel("Tiempo")
     plt.ylabel("pH")
-    plt.title("pH graph")
+    plt.title("pH ")
 
     plt.subplot(2,2,3)
     plt.scatter(tiempo, conductividad)
     plt.xlabel("Tiempo")
     plt.ylabel("conductividad")
-    plt.title("conductividad graph")
+    plt.title("conductividad ")
 
     plt.subplot(2,2,4)
     plt.scatter(tiempo, indice)
     plt.xlabel("Tiempo")
     plt.ylabel("indice")
-    plt.title("indice graph")
+    plt.title("indice ")
 
     plt.show()
-    plt.pause(10)
+    #plt.pause(10)
 
-tiempo,temperatura, pH, conductividad, indice = getVariables()
+
+#Function to print all date from the table lecturas
+def printAllLectures():
+    # Execute the SELECT query
+    cursor.execute("SELECT * FROM lecturas")
+    # Fetch all the rows
+    rows = cursor.fetchall()
+    # Print the column names
+    columns = [description[0] for description in cursor.description]
+    print(columns)
+    #Print the data
+    for row in rows:
+        values = [str(value) if not isinstance(value, (int, float)) else value for value in row]
+        print(values)
+
+def graficarParametros(id_inicial,id_final):
+    tiempo,temperatura, pH, conductividad, indice = getVariables(id_inicial,id_final)
+    printVariables(tiempo,temperatura, pH, conductividad, indice)
+    plotVariables(tiempo,temperatura, pH, conductividad, indice)
+
 
 if __name__ == "__main__":
-    printVariables()
-    plotVariables()
+    graficarParametros(7,11)
+    printAllLectures()

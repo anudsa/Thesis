@@ -482,6 +482,10 @@ if __name__ == "__main__":
         global detener_intervalos
         detener_intervalos=True
         show_frame(Homescreen)
+    
+    #Funcion para graficar
+    def graficarIntervalos():
+        grafica.graficarParametros(id_inicial_intervalos,id_final_continua)
 
     #Funcion para exportar a Excel
     def exportarIntervalos():
@@ -511,7 +515,7 @@ if __name__ == "__main__":
         image=button_image_2_intervalos,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2_intervalos clicked"), #Graficar
+        command=graficarIntervalos, #Graficar
         relief="flat"
     )
     button_2_intervalos.place(
@@ -798,6 +802,10 @@ if __name__ == "__main__":
         id_final_continua = leeUltimoid()
         messagebox.showinfo("","Detenido")
 
+    #Funcion para graficar
+    def graficarcontinua():
+        grafica.graficarParametros(id_inicial_continua,id_final_continua)
+
     #Funcion para exportar a Excel
     def exportarContinua():
         export.exportarExcel(id_inicial_continua,id_final_continua)
@@ -851,7 +859,7 @@ if __name__ == "__main__":
         image=button_image_3_continua,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3_continua clicked"), #Graficar
+        command=graficarcontinua, #Graficar
         relief="flat"
     )
     button_3_continua.place(
