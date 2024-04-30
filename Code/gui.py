@@ -482,7 +482,6 @@ if __name__ == "__main__":
         global detener_intervalos
         detener_intervalos=True
         show_frame(Homescreen)
-        printAllLectures()
 
     #Funcion para exportar a Excel
     def exportarIntervalos():
@@ -797,6 +796,7 @@ if __name__ == "__main__":
         detener_continua = True
         global id_final_continua
         id_final_continua = leeUltimoid()
+        messagebox.showinfo("Detenido","Detenido")
 
     #Funcion para exportar a Excel
     def exportarContinua():
@@ -807,8 +807,7 @@ if __name__ == "__main__":
     def irAHomeContinua():
         detenerMedicionesContinua()
         show_frame(Homescreen)
-        printAllLectures()
-        
+       
 
     #Botones
     button_image_1_continua = PhotoImage(
@@ -1083,8 +1082,7 @@ if __name__ == "__main__":
     #Regresa a home y detiene mediciones
     def irAHomePuntual():
         show_frame(Homescreen)
-        printAllLectures()
-
+       
     #Botones
     button_image_1_puntual = PhotoImage(
         file=relative_to_assets("button_1_puntual.png"))
