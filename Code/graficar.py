@@ -66,4 +66,4 @@ def graficarDatos(id_inicial, id_final):
 
 # Ejemplo de uso de la funcion
 if __name__ == "__main__":
-    graficar(7,11)
+    graficarDatos(7,11)
