@@ -34,4 +34,4 @@ def exportarExcel(id_inicial, id_final):
 
 # Ejemplo de uso de la funcion
 if __name__ == "__main__":
-    exportarExcel(2, 4)
+    exportarExcel(1, 4)

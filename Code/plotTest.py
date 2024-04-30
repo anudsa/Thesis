@@ -11,72 +11,78 @@ mysql_db = mysql.connector.connect(
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
 
-def getVariables():
+def getVariables(id_inicial,id_final):
     # Execute the SELECT query
-    cursor.execute("SELECT tiempo,temperatura, pH, conductividad_electrica, oxigeno_disuelto FROM lecturas")
+    cursor.execute(f"SELECT tiempo, temperatura, pH, conductividad, indice FROM lecturas WHERE id BETWEEN {id_inicial} AND {id_final}")
     # Fetch all the rows
     rows = cursor.fetchall()
     #list comprehension to retrieve values
     tiempo = [row[0].strftime("%H:%M:%S") for row in rows]
-    temp = [float(row[1]) for row in rows]
+    temperatura = [float(row[1]) for row in rows]
     pH = [float(row[2]) for row in rows]
-    EC = [float(row[3]) for row in rows]
-    ox = [float(row[4]) for row in rows]
-    return tiempo,temp, pH, EC, ox
+    conductividad = [float(row[3]) for row in rows]
+    indice = [float(row[4]) for row in rows]
+    return tiempo,temperatura, pH, conductividad, indice
 
-def printVariables():
+def printVariables(tiempo,temperatura,pH,conductividad,indice):
     print("Tiempo",tiempo)
-    print("Temp = ", temp)
-    for temperature in temp:
+    print("temperatura = ", temperatura)
+    for temperature in temperatura:
         print(temperature)
     print("pH= ", pH)
-    print("EC= ", EC)
-    print("Ox= ", ox)
+    print("conductividad= ", conductividad)
+    print("indice= ", indice)
 
-def plotVariables():
-    plt.figure()
+def plotVariables(tiempo,temperatura, pH, conductividad, indice):
+    plt.figure(figsize=(12,8))
     plt.subplot(2,2,1)
-    #plt.scatter(range(0,4),temp)
-    plt.scatter(tiempo,temp)
-    # setting xlabel of graph
+    plt.scatter(tiempo, temperatura)
     plt.xlabel("Tiempo")
-    # setting ylabel of graph
     plt.ylabel("Temperatura")
-    # setting tile of graph
-    plt.title("temp graph")
+    plt.title("temperatura ")
     
     plt.subplot(2,2,2)
-    plt.scatter(range(0,4),pH)
-    # setting xlabel of graph
+    plt.scatter(tiempo, pH)
     plt.xlabel("Tiempo")
-    # setting ylabel of graph
     plt.ylabel("pH")
-    # setting tile of graph
-    plt.title("pH graph")
+    plt.title("pH ")
 
     plt.subplot(2,2,3)
-    plt.scatter(range(0,4),EC)
-    # setting xlabel of graph
+    plt.scatter(tiempo, conductividad)
     plt.xlabel("Tiempo")
-    # setting ylabel of graph
-    plt.ylabel("EC")
-    # setting tile of graph
-    plt.title("EC graph")
+    plt.ylabel("conductividad")
+    plt.title("conductividad ")
 
     plt.subplot(2,2,4)
-    plt.scatter(range(0,4),ox)
-    # setting xlabel of graph
+    plt.scatter(tiempo, indice)
     plt.xlabel("Tiempo")
-    # setting ylabel of graph
-    plt.ylabel("ox")
-    # setting tile of graph
-    plt.title("ox graph")
+    plt.ylabel("indice")
+    plt.title("indice ")
 
-    # show() method to display the graph
     plt.show()
+    plt.pause(10)
 
-tiempo,temp, pH, EC, ox = getVariables()
 
-printVariables()
+#Function to print all date from the table lecturas
+def printAllLectures():
+    # Execute the SELECT query
+    cursor.execute("SELECT * FROM lecturas")
+    # Fetch all the rows
+    rows = cursor.fetchall()
+    # Print the column names
+    columns = [description[0] for description in cursor.description]
+    print(columns)
+    #Print the data
+    for row in rows:
+        values = [str(value) if not isinstance(value, (int, float)) else value for value in row]
+        print(values)
 
-plotVariables()
+def graficarParametros(id_inicial,id_final):
+    tiempo,temperatura, pH, conductividad, indice = getVariables(id_inicial,id_final)
+    printVariables(tiempo,temperatura, pH, conductividad, indice)
+    plotVariables(tiempo,temperatura, pH, conductividad, indice)
+
+
+if __name__ == "__main__":
+    graficarParametros(7,11)
+    printAllLectures()
