@@ -796,7 +796,7 @@ if __name__ == "__main__":
         global detener_continua
         detener_continua = True
         global id_final_continua
-        id_final_continua = leeUltimoid
+        id_final_continua = leeUltimoid()
 
     #Funcion para exportar a Excel
     def exportarContinua():
