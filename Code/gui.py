@@ -9,12 +9,13 @@ import re
 import RPi.GPIO as GPIO
 import mysql.connector
 from datetime import datetime
-import WQIFormula as WQI
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 import threading	
 import export
 import graficar
+#import WQIFormula as WQI
+import Formula
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/build/assets/frame0")
@@ -180,10 +181,12 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
                 continue
 
     #Cálculo del índice
-    P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno)
-    indice =WQI.calculo(P,[1,2,3])
+    #P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno)
+    #indice = WQI.calculo(P,[1,2,3])
+    indice = Formula.calcular_indice(conductividad,temp,potencialHidrogeno)
     mediciones['indice'] = indice
-    calidad=WQI.interpretacion(indice)
+    #calidad=WQI.interpretacion(indice)
+    calidad = Formula.interpretacion(indice)
     mediciones['calidad'] = calidad
     addData(mediciones)
     return mediciones
