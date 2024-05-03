@@ -810,7 +810,7 @@ if __name__ == "__main__":
     def graficarcontinua():
         global id_inicial_continua
         global id_final_continua
-        graph.gragraphData(id_inicial_continua,id_final_continua)
+        graph.graphData(id_inicial_continua,id_final_continua)
 
     #Funcion para exportar a Excel
     def exportarContinua():
