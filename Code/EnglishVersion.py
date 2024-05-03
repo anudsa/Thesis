@@ -13,7 +13,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 import threading	
 import export
-import graficar
+import graph
 #import WQIFormula as WQI
 import Formula
 #Path para la gui es establecido
@@ -181,12 +181,9 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
                 continue
 
     #Cálculo del índice
-    #P=WQI.parametrizacion(conductividad,temp,potencialHidrogeno)
-    #indice = WQI.calculo(P,[1,2,3])
     indice = Formula.calcular_indice(conductividad,temp,potencialHidrogeno)
     mediciones['indice'] = indice
-    #calidad=WQI.interpretacion(indice)
-    calidad = Formula.interpretacion(indice)
+    calidad = Formula.interpretation(indice)
     mediciones['calidad'] = calidad
     addData(mediciones)
     return mediciones
@@ -381,7 +378,7 @@ if __name__ == "__main__":
         332.0,
         235.0,
         anchor="nw",
-        text="Conductividad: N/A",
+        text="Electrical Conductivity: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -390,7 +387,7 @@ if __name__ == "__main__":
         328.0,
         347.0,
         anchor="nw",
-        text="Temperatura: N/A",
+        text="Temperature: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -399,7 +396,7 @@ if __name__ == "__main__":
         328.0,
         459.0,
         anchor="nw",
-        text="Índice de Calidad de Agua: N/A",
+        text="Water Quality Index: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -408,7 +405,7 @@ if __name__ == "__main__":
         328.0,
         571.0,
         anchor="nw",
-        text="Calidad: N/A",
+        text="Quality: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -422,16 +419,16 @@ if __name__ == "__main__":
         canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
 
         conductividadValor_intervalos = mediciones_intervalos['conductividad_electrica']
-        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Electrical Conductivity: {conductividadValor_intervalos:.4f}")
 
         temperaturaValor_intervalos = mediciones_intervalos['temperatura']
-        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperature: {temperaturaValor_intervalos:.4f}")
 
         indice_intervalos = mediciones_intervalos['indice']
-        canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Water Quality Index: {indice_intervalos:.4f}")
 
         calidad_intervalos = mediciones_intervalos['calidad']
-        canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=f"Calidad: {calidad_intervalos}")
+        canvas_intervalos.itemconfig(tagOrId=calidadText_intervalos, text=f"Quality: {calidad_intervalos}")
 
     tiempo_muestreo_intervalos=1 #Tiempo default de 1 segundo
     duracion_intervalos=5 #Tiempo default de 5 segundos
@@ -444,21 +441,21 @@ if __name__ == "__main__":
             duracion_intervalos = int(entry_2_intervalos.get())
             #Se verifica que el tiempo de muestreo sea menor a la duración
             if(duracion_intervalos<tiempo_muestreo_intervalos):
-                messagebox.showerror("Error","El tiempo de muestreo debe ser menor a la duración total")  
+                messagebox.showerror("Error","Length must be greater than sample time")  
             elif(tiempo_muestreo_intervalos==0 or duracion_intervalos==0):
-                messagebox.showerror("Error","Inserte un valor mayor a cero")
+                messagebox.showerror("Error","Enter a value greater than zero")
             #Limita el tiempo máximo a 1 año en ambos casos
             elif(duracion_intervalos<31536000 and tiempo_muestreo_intervalos<31536000):
-                messagebox.showinfo("Listo",f"La duración total es {duracion_intervalos}s y el tiempo de muestreo es de {tiempo_muestreo_intervalos}s.")
+                messagebox.showinfo("Done",f"Total length is set to {duracion_intervalos}s & sample time to {tiempo_muestreo_intervalos}s.")
         except ValueError:
-            messagebox.showerror("Error","Inserte datos válidos")
+            messagebox.showerror("Error","Enter valid data")
 
     detener_intervalos=False
     
     def medirEnIntervalos(tiempo_muestreo_intervalos, duracion_intervalos):
-        messagebox.showinfo("","Medición iniciada.")
+        messagebox.showinfo("","Measurement Started.")
         if duracion_intervalos < tiempo_muestreo_intervalos or duracion_intervalos <=0 or tiempo_muestreo_intervalos <= 0:
-            messagebox.showerror("Error","Inserte datos válidos")
+            messagebox.showerror("Error","Enter valid data")
             return
         global id_inicial_intervalos
         id_inicial_intervalos=leeUltimoid()+1
@@ -473,13 +470,12 @@ if __name__ == "__main__":
             tiempo_transcurrido = time.time() - tiempo_inicio
             if  tiempo_transcurrido<=0.9:
                 offset_inicial=tiempo_transcurrido
-            #print("Tiempo transcurrido:", tiempo_transcurrido)
             if  detener_intervalos==True:
                 break
             time.sleep(tiempo_muestreo_intervalos-offset_inicial)
-        print("Tiempo total:", tiempo_transcurrido)
+        print("Elapsed Time:", tiempo_transcurrido)
         id_final_intervalos=leeUltimoid()
-        messagebox.showinfo("Listo","El intervalo ha terminado.")
+        messagebox.showinfo("Done","The interval is over.")
 
     #Regresa a home y detiene mediciones
     def irAHomeIntervalos():
@@ -491,12 +487,12 @@ if __name__ == "__main__":
     def graficarIntervalos():
         global id_inicial_intervalos
         global id_final_intervalos
-        graficar.graficarDatos(id_inicial_intervalos,id_final_intervalos)
+        graph.graphData(id_inicial_intervalos,id_final_intervalos)
 
     #Funcion para exportar a Excel
     def exportarIntervalos():
         export.exportarExcel(id_inicial_intervalos,id_final_intervalos)
-        messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
+        messagebox.showinfo("Done","The file has been saved in the following path: /home/pi/Desktop/ArchivosExportados/")
 
     #Botones
     button_image_1_intervalos = PhotoImage(
@@ -720,7 +716,7 @@ if __name__ == "__main__":
         332.0,
         235.0,
         anchor="nw",
-        text="Conductividad: N/A",
+        text="Electrical Conductivity: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -729,7 +725,7 @@ if __name__ == "__main__":
         328.0,
         347.0,
         anchor="nw",
-        text="Temperatura: N/A",
+        text="Temperature: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -738,7 +734,7 @@ if __name__ == "__main__":
         328.0,
         459.0,
         anchor="nw",
-        text="Índice de Calidad de Agua: N/A",
+        text="Water Quality Index: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -747,7 +743,7 @@ if __name__ == "__main__":
         328.0,
         571.0,
         anchor="nw",
-        text="Calidad: N/A",
+        text="Quality: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -760,16 +756,16 @@ if __name__ == "__main__":
         canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.4f}")
 
         conductividadValor_continua = mediciones_continua['conductividad_electrica']
-        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Electrical Conductivity: {conductividadValor_continua:.4f}")
 
         temperaturaValor_continua = mediciones_continua['temperatura']
-        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperature: {temperaturaValor_continua:.4f}")
 
         indice_continua = mediciones_continua['indice']
-        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Water Quality Index: {indice_continua:.4f}")
 
         calidad_continua = mediciones_continua['calidad']
-        canvasContinua.itemconfig(tagOrId=calidadText_continua, text=f"Calidad: {calidad_continua}")
+        canvasContinua.itemconfig(tagOrId=calidadText_continua, text=f"Quality: {calidad_continua}")
  
     tiempo_muestreo_continua=1 #Tiempo default de 1 segundo
 
@@ -778,18 +774,18 @@ if __name__ == "__main__":
         try:
             tiempo_muestreo_continua= int(entry_1_continua.get())
             if(tiempo_muestreo_continua==1):
-                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundo.")    
+                messagebox.showinfo("Done",f"Sample time is now set to {tiempo_muestreo_continua} second.")    
             elif(tiempo_muestreo_continua==0):
-                messagebox.showerror("Error","Inserte un número válido")
+                messagebox.showerror("Error","Enter a valid number")
             #Limita el tiempo máximo a 30 días
             elif(tiempo_muestreo_intervalos<2592000):
-                messagebox.showinfo("Listo",f"El tiempo de muestreo ahora es de {tiempo_muestreo_continua} segundos.")
+                messagebox.showinfo("Done",f"Sample time is now set to {tiempo_muestreo_continua} seconds.")
         except ValueError:
-            messagebox.showerror("Error","Inserte un número válido")
+            messagebox.showerror("Error","Enter a valid number")
     
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamente():
-        messagebox.showinfo("","Medición iniciada.")
+        messagebox.showinfo("","Measurement Started.")
         global id_inicial_continua 
         id_inicial_continua = leeUltimoid()+1
         global detener_continua
@@ -800,7 +796,7 @@ if __name__ == "__main__":
             while not detener_continua:
                 actualizarDatosContinua()
                 time.sleep(tiempo_muestreo_continua)  # Tiempo de muestreo en segs.
-            messagebox.showinfo("","Detenido")
+            messagebox.showinfo("","Stopped")
 
     #Detiene la medicion continua
     def detenerMedicionesContinua():
@@ -814,12 +810,12 @@ if __name__ == "__main__":
     def graficarcontinua():
         global id_inicial_continua
         global id_final_continua
-        graficar.graficarDatos(id_inicial_continua,id_final_continua)
+        graph.gragraphData(id_inicial_continua,id_final_continua)
 
     #Funcion para exportar a Excel
     def exportarContinua():
         export.exportarExcel(id_inicial_continua,id_final_continua)
-        messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
+        messagebox.showinfo("Done","The file has been saved in the following path: /home/pi/Desktop/ArchivosExportados/")
 
     #Regresa a home y detiene mediciones
     def irAHomeContinua():
@@ -1044,7 +1040,7 @@ if __name__ == "__main__":
         332.0,
         273.0,
         anchor="nw",
-        text="Conductividad: N/A",
+        text="Electrical Conductivity: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -1053,7 +1049,7 @@ if __name__ == "__main__":
         328.0,
         385.0,
         anchor="nw",
-        text="Temperatura: N/A",
+        text="Temperature: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -1062,7 +1058,7 @@ if __name__ == "__main__":
         328.0,
         497.0,
         anchor="nw",
-        text="Índice de Calidad de Agua: N/A",
+        text="Water Quality Index: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -1071,7 +1067,7 @@ if __name__ == "__main__":
         328.0,
         609.0,
         anchor="nw",
-        text="Calidad: N/A",
+        text="Quality: N/A",
         fill="#FFFFFF",
         font=("NunitoSans Regular", 32 * -1)
     )
@@ -1086,16 +1082,16 @@ if __name__ == "__main__":
 
 
         conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
-        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.4f}")
+        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Electrical Conductivity: {conductividadValor_puntual:.4f}")
 
         temperaturaValor_puntual = mediciones_puntual['temperatura']
-        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.4f}")
+        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperature: {temperaturaValor_puntual:.4f}")
 
         indice_puntual = mediciones_puntual['indice']
-        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual:.4f}")
+        canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Water Quality Index: {indice_puntual:.4f}")
 
         calidad = mediciones_puntual['calidad']
-        canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=f"Calidad: {calidad}")
+        canvasPuntual.itemconfig(tagOrId=calidadText_puntual, text=f"Quality: {calidad}")
 
     #Regresa a home y detiene mediciones
     def irAHomePuntual():

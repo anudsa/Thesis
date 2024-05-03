@@ -49,17 +49,27 @@ def interpretacion(indice):
     if indice < 0.3:
         return "Baja"
     elif 0.3 <= indice <= 0.7:
-        return "Aceptable"
+        return "Regular"
     else:
         return "Excelente"
+    
+#For the English version    
+def interpretation(indice):
+    if indice < 0.3:
+        return "Low"
+    elif 0.3 <= indice <= 0.7:
+        return "Regular"
+    else:
+        return "Excellent"
+    
 
-# Escenarios de prueba
-escenarios = [
-    {'CE': 120,'T': 30, 'pH': 5, },    # Baja
-    { 'CE': 800,'T': 15, 'pH': 8,},      # Aceptable
-    { 'CE': 500,'T': 23, 'pH': 7.6,},   # Excelente
-]
 if __name__ == "__main__":
+    # Escenarios de prueba
+    escenarios = [
+        {'CE': 120,'T': 30, 'pH': 5, },    # Baja
+        { 'CE': 800,'T': 15, 'pH': 8,},      # Aceptable
+        { 'CE': 500,'T': 23, 'pH': 7.6,},   # Excelente
+    ]
     for i, escenario in enumerate(escenarios, start=1):
         ica = calcular_indice(escenario['T'], escenario['pH'], escenario['CE'])
         interpretacionICA = interpretacion(ica)

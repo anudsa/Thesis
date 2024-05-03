@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 import threading	
-import export
+import exportar
 import graficar
 #import WQIFormula as WQI
 import Formula
@@ -495,7 +495,7 @@ if __name__ == "__main__":
 
     #Funcion para exportar a Excel
     def exportarIntervalos():
-        export.exportarExcel(id_inicial_intervalos,id_final_intervalos)
+        exportar.exportarExcel(id_inicial_intervalos,id_final_intervalos)
         messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
 
     #Botones
@@ -818,7 +818,7 @@ if __name__ == "__main__":
 
     #Funcion para exportar a Excel
     def exportarContinua():
-        export.exportarExcel(id_inicial_continua,id_final_continua)
+        exportar.exportarExcel(id_inicial_continua,id_final_continua)
         messagebox.showinfo("Listo","Se ha guardado en la ruta /home/pi/Desktop/ArchivosExportados/")
 
     #Regresa a home y detiene mediciones
