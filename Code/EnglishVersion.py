@@ -949,7 +949,7 @@ if __name__ == "__main__":
     )
     #Header
     canvasContinua.create_text(
-        474.0,
+        328.0,
         28.0,
         anchor="nw",
         text="Continuous Measurement",
