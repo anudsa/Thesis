@@ -1133,7 +1133,7 @@ if __name__ == "__main__":
     )
     #Header text
     canvasPuntual.create_text(
-        485.0,
+        399.0,
         28.0,
         anchor="nw",
         text="Single Measurement",
