@@ -55,7 +55,7 @@ def graphData(id_inicial, id_final):
     plt.scatter(df['tiempo'], df['indice'])
     plt.xlabel("Time")
     plt.ylabel("Index")
-    plt.title("Index")
+    plt.title("Water Quality Index")
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 

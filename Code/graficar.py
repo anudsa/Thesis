@@ -46,7 +46,7 @@ def graficarDatos(id_inicial, id_final):
     plt.scatter(df['tiempo'], df['conductividad'])
     plt.xlabel("Tiempo")
     plt.ylabel("Conductividad")
-    plt.title("Conductividad")
+    plt.title("Conductividad Eléctrica")
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 
@@ -54,8 +54,8 @@ def graficarDatos(id_inicial, id_final):
     plt.subplot(2, 2, 4)
     plt.scatter(df['tiempo'], df['indice'])
     plt.xlabel("Tiempo")
-    plt.ylabel("Indice")
-    plt.title("Indice")
+    plt.ylabel("Índice")
+    plt.title("Índice de Calidad de Agua")
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 
