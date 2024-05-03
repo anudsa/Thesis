@@ -118,26 +118,26 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         if line.startswith(b'OK'):
             continue
         elif line.startswith(b'*ER'):
-            print("Comando desconocido en el sensor 1")
+            print("Unknown command from Sensor 1")
             continue
         elif line.startswith(b'*OV'):
-            print("Sobrevoltaje en el sensor 1 (VCC>=5.5V)")
+            print("Overvoltage in Sensor 1 (VCC>=5.5V)")
             continue
         elif line.startswith(b'*UV'):
             conductividad = conductividad  # Usar valor anterior
-            print("Bajo voltaje")
+            print("Low voltage")
             continue
         elif line.startswith(b'*RS'):
-            print("Sensor 1 reseteado")
+            print("Sensor 1 reset")
             continue
         elif line.startswith(b'*RE'):
-            print("Sensor 1 iniciado")
+            print("Sensor 1 started")
             continue
         elif line.startswith(b'*SL'):
-            print("Sensor 1 entrando en modo de suspensión")
+            print("Sensor 1 in suspended mode")
             continue
         elif line.startswith(b'*WA'):
-            print("Sensor 1 saliendo del modo de suspensión")
+            print("Sensor 1 exiting suspended mode")
             continue
         else:
             try:
@@ -152,26 +152,26 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         if line.startswith(b'OK'):
             continue
         elif line.startswith(b'*ER'):
-            print("Comando desconocido en el sensor 2")
+            print("Unknown command from Sensor 2")
             continue
         elif line.startswith(b'*OV'):
-            print("Sobrevoltaje en el sensor 2 (VCC>=5.5V)")
+            print("Overvoltage in Sensor 2 (VCC>=5.5V)")
             continue
         elif line.startswith(b'*UV'):
             potencialHidrogeno = potencialHidrogeno  # Usar valor anterior
-            print("Bajo voltaje")
+            print("Low voltage")
             continue
         elif line.startswith(b'*RS'):
-            print("Sensor 2 reseteado")
+            print("Sensor 2 reset")
             continue
         elif line.startswith(b'*RE'):
-            print("Sensor 2 iniciado")
+            print("Sensor 2 started")
             continue
         elif line.startswith(b'*SL'):
-            print("Sensor 2 entrando en modo de suspensión")
+            print("Sensor 2 in suspended moded")
             continue
         elif line.startswith(b'*WA'):
-            print("Sensor 2 saliendo del modo de suspensión")
+            print("Sensor 2 exiting suspended mode")
             continue
         else:
             try:
