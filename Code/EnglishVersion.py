@@ -18,7 +18,7 @@ import graficar
 import Formula
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/build/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/build/assets/EnglishFrame0")
 	
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -624,7 +624,7 @@ if __name__ == "__main__":
         363.0,
         28.0,
         anchor="nw",
-        text="Medición En Intervalos",
+        text="Interval Measurement",
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
@@ -956,7 +956,7 @@ if __name__ == "__main__":
         474.0,
         28.0,
         anchor="nw",
-        text="Medición Continua",
+        text="Continuous Measurement",
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
@@ -1140,7 +1140,7 @@ if __name__ == "__main__":
         485.0,
         28.0,
         anchor="nw",
-        text="Medición Puntual",
+        text="Single Measurement",
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
@@ -1231,7 +1231,7 @@ if __name__ == "__main__":
         346.0,
         28.0,
         anchor="nw",
-        text="Sistema de Adquisición de Datos",
+        text="Data Acquisition System",
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
