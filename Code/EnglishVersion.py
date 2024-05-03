@@ -617,7 +617,7 @@ if __name__ == "__main__":
     )
     #Header
     canvas_intervalos.create_text(
-        373.0,
+        399.0,
         28.0,
         anchor="nw",
         text="Interval Measurement",
@@ -949,7 +949,7 @@ if __name__ == "__main__":
     )
     #Header
     canvasContinua.create_text(
-        363.0,
+        399.0,
         28.0,
         anchor="nw",
         text="Continuous Measurement",
