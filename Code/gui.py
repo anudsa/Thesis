@@ -456,6 +456,7 @@ if __name__ == "__main__":
     detener_intervalos=False
     
     def medirEnIntervalos(tiempo_muestreo_intervalos, duracion_intervalos):
+        messagebox.showerror("","Medición iniciada.")
         if duracion_intervalos < tiempo_muestreo_intervalos or duracion_intervalos <=0 or tiempo_muestreo_intervalos <= 0:
             messagebox.showerror("Error","Inserte datos válidos")
             return
@@ -788,6 +789,7 @@ if __name__ == "__main__":
     
     #Mide continuamente hasta que se presiona el boton detener  
     def medirContinuamente():
+        messagebox.showerror("","Medición iniciada.")
         global id_inicial_continua 
         id_inicial_continua = leeUltimoid()+1
         global detener_continua
