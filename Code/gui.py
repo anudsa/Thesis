@@ -419,7 +419,7 @@ if __name__ == "__main__":
         mediciones_intervalos = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
         
         pHValor_intervalos = mediciones_intervalos['pH']
-        canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"ph: {pHValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"pH: {pHValor_intervalos:.4f}")
 
         conductividadValor_intervalos = mediciones_intervalos['conductividad_electrica']
         canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
@@ -757,7 +757,7 @@ if __name__ == "__main__":
         mediciones_continua = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
         
         pHValor_continua = mediciones_continua['pH']
-        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"ph: {pHValor_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"pH: {pHValor_continua:.4f}")
 
         conductividadValor_continua = mediciones_continua['conductividad_electrica']
         canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f}")
@@ -1081,8 +1081,8 @@ if __name__ == "__main__":
         mediciones_puntual = poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
 
         pHValor_puntual = mediciones_puntual['pH']
-        #canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual}")
-        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"ph: {pHValor_puntual:.4f}")
+        #canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"pH: {pHValor_puntual}")
+        canvasPuntual.itemconfig(tagOrId=pHText_puntual, text=f"pH: {pHValor_puntual:.4f}")
 
 
         conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
