@@ -288,8 +288,8 @@ if __name__ == "__main__":
     canvas_intervalos = Canvas(
         medicionEnIntervalos,
         bg = "#FFFFFF",
-        height = 720,
-        width = 1280,
+        height = 600,
+        width = 1024,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
@@ -635,8 +635,8 @@ if __name__ == "__main__":
     canvasContinua = Canvas(
         medicionContinua,
         bg = "#FFFFFF",
-        height = 720,
-        width = 1280,
+        height = 600,
+        width = 1024,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
@@ -967,8 +967,8 @@ if __name__ == "__main__":
     canvasPuntual = Canvas(
         medicionPuntual,
         bg = "#FFFFFF",
-        height = 720,
-        width = 1280,
+        height = 600,
+        width = 1024,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
