@@ -1236,5 +1236,5 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 40 * -1)
     )
     
-    window.resizable(False, False)
+    window.resizable(True, True)
     window.mainloop()
