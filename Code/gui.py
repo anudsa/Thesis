@@ -1,7 +1,6 @@
 from pathlib import Path
 from tkinter import *
 from tkinter import messagebox
-from tkinter import ttk
 import serial
 import sys
 import time
@@ -1236,5 +1235,6 @@ if __name__ == "__main__":
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
+    
     window.resizable(False, False)
     window.mainloop()
