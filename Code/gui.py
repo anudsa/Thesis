@@ -1236,9 +1236,5 @@ if __name__ == "__main__":
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
-    firstScrollbar=ttk.Scrollbar(Homescreen,orient=VERTICAL,command=canvasHomescreen.yview)
-    firstScrollbar.pack(side=LEFT,fill=Y)
-    canvasHomescreen.configure(yscrollcommand=firstScrollbar.set)
-    canvasHomescreen.bind('<Configure>',lambda e:canvasHomescreen.configure(scrollregion=canvasHomescreen.bbox("all")))
     window.resizable(False, False)
     window.mainloop()
