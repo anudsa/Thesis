@@ -270,7 +270,7 @@ if __name__ == "__main__":
 	
     window = Tk()
     window.title("Sistema de Adquisición de Datos")
-    window.geometry("1280x720")
+    window.geometry("768x450")
     
     
     medicionContinua = Frame(window)
@@ -1236,5 +1236,5 @@ if __name__ == "__main__":
         font=("NunitoSans Regular", 40 * -1)
     )
     
-    window.resizable(True, True)
+    window.resizable(False, False)
     window.mainloop()
