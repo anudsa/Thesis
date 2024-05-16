@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import *
 from tkinter import messagebox
+from tkinter import ttk
 import serial
 import sys
 import time
@@ -270,7 +271,7 @@ if __name__ == "__main__":
 	
     window = Tk()
     window.title("Sistema de Adquisición de Datos")
-    window.geometry("1100x600")
+    window.geometry("1280x720")
     
     
     medicionContinua = Frame(window)
@@ -1235,6 +1236,9 @@ if __name__ == "__main__":
         fill="#000000",
         font=("NunitoSans Regular", 40 * -1)
     )
-    
+    firstScrollbar=ttk.Scrollbar(Homescreen,orient=VERTICAL,command=canvasHomescreen.yview)
+    firstScrollbar.pack(side=LEFT,fill=Y)
+    canvasHomescreen.configure(yscrollcommand=firstScrollbar.set)
+    canvasHomescreen.bind('<Configure>',lambda e:canvasHomescreen.configure(scrollregion=canvasHomescreen.bbox("all")))
     window.resizable(False, False)
     window.mainloop()
