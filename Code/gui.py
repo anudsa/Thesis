@@ -270,7 +270,7 @@ if __name__ == "__main__":
 	
     window = Tk()
     window.title("Sistema de Adquisición de Datos")
-    window.geometry("1024x600")
+    window.geometry("1280x720")
     
     
     medicionContinua = Frame(window)
@@ -288,8 +288,8 @@ if __name__ == "__main__":
     canvas_intervalos = Canvas(
         medicionEnIntervalos,
         bg = "#FFFFFF",
-        height = 600,
-        width = 1024,
+        height = 720,
+        width = 1280,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
@@ -635,8 +635,8 @@ if __name__ == "__main__":
     canvasContinua = Canvas(
         medicionContinua,
         bg = "#FFFFFF",
-        height = 600,
-        width = 1024,
+        height = 720,
+        width = 1280,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
@@ -967,8 +967,8 @@ if __name__ == "__main__":
     canvasPuntual = Canvas(
         medicionPuntual,
         bg = "#FFFFFF",
-        height = 600,
-        width = 1024,
+        height = 720,
+        width = 1280,
         bd = 0,
         highlightthickness = 0,
         relief = "ridge"
