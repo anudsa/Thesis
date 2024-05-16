@@ -270,7 +270,7 @@ if __name__ == "__main__":
 	
     window = Tk()
     window.title("Sistema de Adquisición de Datos")
-    window.geometry("1024x600")
+    window.geometry("1240x600")
     
     
     medicionContinua = Frame(window)
