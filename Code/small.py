@@ -13,7 +13,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage 
 import threading	
 import exportar
-import graficar
+import graficarsmall as graficar
 #import WQIFormula as WQI
 import Formula
 #Path para la gui es establecido
