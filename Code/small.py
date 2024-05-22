@@ -1032,7 +1032,7 @@ if __name__ == "__main__":
     #Texto
     pHText_puntual=canvasPuntual.create_text(
         253.14999389648438,
-        122.76251220703125
+        122.76251220703125,
         anchor="nw",
         text="pH: N/A",
         fill="#FFFFFF",
