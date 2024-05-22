@@ -14,21 +14,21 @@ def relative_to_assets(path: str) -> Path:
 
 
 window = Tk()
-
+#Tamaño de ventana
 window.geometry("976x549")
 window.configure(bg = "#FFFFFF")
 
-
+#Tamaño del canvas
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
-    height = 549,
-    width = 976,
+    height = 549,###
+    width = 976,###
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
 )
-
+#Cambiar dirección de imágenes para que tome las nuevas (verficar que hayan mantenido el mismo nombre)
 canvas.place(x = 0, y = 0)
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
