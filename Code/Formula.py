@@ -47,18 +47,18 @@ def calcular_indice( CE,T, pH,):
     return indice
 
 def interpretacion(indice):
-    if indice <= 0.25:
+    if indice < 0.25:
         return "Baja"
-    elif 0.25 < indice <= 0.75:
+    elif 0.25 <= indice <= 0.75:
         return "Regular"
     else:
         return "Excelente"
     
 #For the English version    
 def interpretation(indice):
-    if indice <= 0.25:
+    if indice < 0.25:
         return "Low"
-    elif 0.25 < indice <= 0.75:
+    elif 0.25 <= indice <= 0.75:
         return "Regular"
     else:
         return "Excellent"
