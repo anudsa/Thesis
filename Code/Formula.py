@@ -27,9 +27,9 @@ def calcular_subindice_ph(pH):
 
 def calcular_subindice_conductividad(CE):
     # Subíndice de Conductividad Eléctrica (ICA_CE)
-    if CE > 0 and CE < 300:
+    if CE > 0 and CE < 250:
         subindice_CE = 0.1
-    elif 300 <= CE <= 700:
+    elif 2500 <= CE <= 600:
         subindice_CE = 1.0
     else:
         subindice_CE = 0.5
@@ -53,16 +53,6 @@ def interpretacion(indice):
         return "Regular"
     else:
         return "Excelente"
-    
-#For the English version    
-def interpretation(indice):
-    if indice < 0.25:
-        return "Low"
-    elif 0.25 <= indice <= 0.75:
-        return "Regular"
-    else:
-        return "Excellent"
-    
 
 if __name__ == "__main__":
     # Escenarios de prueba
@@ -83,3 +73,12 @@ if __name__ == "__main__":
         
         print(f"Para CE: {CE}, T: {T}, pH: {pH}, el índice es: {indice} ({interpretVariable})")
 
+#For the English version    
+def interpretation(indice):
+    if indice < 0.25:
+        return "Low"
+    elif 0.25 <= indice <= 0.75:
+        return "Regular"
+    else:
+        return "Excellent"
+    
