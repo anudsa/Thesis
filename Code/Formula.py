@@ -7,7 +7,7 @@ def calcular_subindice_temperatura(T):
     # Subíndice de Temperatura (ICA_T)
     if T > 25:
         subindice_T = 0.1
-    elif 20 <= T <= 25:
+    elif 20 <= T <= 27:
         subindice_T = 1.0
     else:
         subindice_T = 0.5
