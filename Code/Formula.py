@@ -7,7 +7,7 @@ def calcular_subindice_temperatura(T):
     # Subíndice de Temperatura (ICA_T)
     if T > 25:
         subindice_T = 0.1
-    elif 20 <= T <= 27:
+    elif 20 <= T <= 25:
         subindice_T = 1.0
     else:
         subindice_T = 0.5
@@ -18,10 +18,10 @@ def calcular_subindice_ph(pH):
     # Subíndice de pH (ICA_pH)
     if pH < 6:
         subindice_pH = 0.1
-    elif 6 <= pH <= 7.5:
-        subindice_pH = 0.5
-    else:
+    elif 6 <= pH <= 8:
         subindice_pH = 1.0
+    else:
+        subindice_pH = 0.5
 
     return subindice_pH
 
@@ -67,8 +67,8 @@ def interpretation(indice):
 if __name__ == "__main__":
     # Escenarios de prueba
     escenarios = [
-        {'CE': 120, 'T': 30, 'pH': 5},    # Baja
-        {'CE': 800, 'T': 15, 'pH': 8},     # Aceptable
+        {'CE': 355.9, 'T': 26.25, 'pH': 6.183},    # Baja
+        {'CE': 534, 'T': 25.75, 'pH': 7.719},     # Regular
         {'CE': 500, 'T': 23, 'pH': 7.6},   # Excelente
     ]
 
