@@ -46,18 +46,18 @@ def calcular_indice( CE,T, pH,):
     return indice
 
 def interpretacion(indice):
-    if indice < 0.3:
+    if indice < 0.35:
         return "Baja"
-    elif 0.3 <= indice <= 0.7:
+    elif 0.35 <= indice <= 0.7:
         return "Regular"
     else:
         return "Excelente"
     
 #For the English version    
 def interpretation(indice):
-    if indice < 0.3:
+    if indice < 0.35:
         return "Low"
-    elif 0.3 <= indice <= 0.7:
+    elif 0.35 <= indice <= 0.7:
         return "Regular"
     else:
         return "Excellent"
@@ -67,7 +67,7 @@ def interpretation(indice):
 if __name__ == "__main__":
     # Escenarios de prueba
     escenarios = [
-        {'CE': 355.9, 'T': 26.25, 'pH': 6.183},    # Baja
+        {'CE': 1000, 'T': 26.25, 'pH': 8.183},    # Baja
         {'CE': 534, 'T': 25.75, 'pH': 7.719},     # Regular
         {'CE': 500, 'T': 23, 'pH': 7.6},   # Excelente
     ]
