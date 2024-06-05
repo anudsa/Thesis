@@ -6,13 +6,13 @@ import re
 import RPi.GPIO as GPIO
 import mysql.connector
 from datetime import datetime
-import grafica
-import WQIFormula as WQI
+import graficar
+import Formula as WQI
 #Database connection
 mysql_db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Pa$$w0rd",
+    password="****", #Reemplazar * por contraseña real. 
     database="Sensores"
 )
 # Create a cursor object to execute SQL queries

@@ -62,14 +62,12 @@ def interpretation(indice):
     else:
         return "Excellent"
     
-
-
 if __name__ == "__main__":
     # Escenarios de prueba
     escenarios = [
-        {'CE': 1000, 'T': 26.25, 'pH': 8.183},    # Baja
-        {'CE': 534, 'T': 25.75, 'pH': 7.719},     # Regular
-        {'CE': 500, 'T': 23, 'pH': 7.6},   # Excelente
+        {'CE': 1000, 'T': 27, 'pH': 9},  # Baja
+        {'CE': 534, 'T': 26, 'pH': 7.5}, # Regular
+        {'CE': 500, 'T': 23, 'pH': 7},   # Excelente
     ]
 
     # Ejecutar escenarios de prueba

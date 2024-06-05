@@ -23,7 +23,7 @@ def graficarDatos(id_inicial, id_final):
    #Crea la figura con el tamaño específico
     plt.figure(figsize=(12, 8))
 
-    #Grafica el primer subplot
+    #Grafica la primera subgráfica
     plt.subplot(2, 2, 1)
     plt.scatter(df['tiempo'], df['temperatura'])
     plt.xlabel("Tiempo")
@@ -32,7 +32,7 @@ def graficarDatos(id_inicial, id_final):
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 
-    #Grafica el segundo subplot
+    #Grafica la segunda subgráfica
     plt.subplot(2, 2, 2)
     plt.scatter(df['tiempo'], df['pH'])
     plt.xlabel("Tiempo")
@@ -41,7 +41,7 @@ def graficarDatos(id_inicial, id_final):
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 
-    #Grafica el tercer subplot
+    #Grafica la tercera subgráfica
     plt.subplot(2, 2, 3)
     plt.scatter(df['tiempo'], df['conductividad'])
     plt.xlabel("Tiempo")
@@ -50,7 +50,7 @@ def graficarDatos(id_inicial, id_final):
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%m %H:%M'))
     plt.xticks(rotation='vertical')
 
-    #Grafica el cuarto subplot
+    #Grafica la cuarta subgráfica
     plt.subplot(2, 2, 4)
     plt.scatter(df['tiempo'], df['indice'])
     plt.xlabel("Tiempo")
@@ -67,4 +67,5 @@ def graficarDatos(id_inicial, id_final):
 
 #Ejemplo de uso de la funcion
 if __name__ == "__main__":
-    graficarDatos(7,11)
+    #Se llama a la función con los id a graficar
+    graficarDatos(2,10)

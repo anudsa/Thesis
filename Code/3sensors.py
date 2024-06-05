@@ -6,7 +6,7 @@ import re
 import RPi.GPIO as GPIO
 
 #function to get temperatures
-def getTemperatures():
+def leerTemperatura():
     allTemps = list()
     onewire_basedir = "/sys/bus/w1/devices/"
     onewire_devices = os.listdir(onewire_basedir)
@@ -62,10 +62,10 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
     print("Polling sensors connected to {} and {}: ".format(usbport1, usbport2))
 
     while True:
-        one_wire_temps = getTemperatures()
+        one_wire_temps = leerTemperatura()
 
         if one_wire_temps:
-            print("Temperature from One-Wire Sensor: {:.2f}°C".format(one_wire_temps[0]))
+            print("Temperatura: {:.2f}°C".format(one_wire_temps[0]))
         else:
             print("Unable to read temperature from One-Wire Sensor.")
 
@@ -73,29 +73,30 @@ def poll_sensors(sensor1, sensor2, usbport1, usbport2):
         lines1 = read_lines(sensor1)
         for i in range(len(lines1)):
             if lines1[i][0] != b'*'[0]:
-                print("Response from {}: {}".format(usbport1, lines1[i].decode('utf-8')))
+                print("Conductividad {}: {}".format(usbport1, lines1[i].decode('utf-8')))
 
         send_cmd(sensor2, "R")
         lines2 = read_lines(sensor2)
         for i in range(len(lines2)):
             if lines2[i][0] != b'*'[0]:
-                print("Response from {}: {}".format(usbport2, lines2[i].decode('utf-8')))
+                print("pH {}: {}".format(usbport2, lines2[i].decode('utf-8')))
 
-        time.sleep(1)  # Adjust as needed
+        time.sleep(1)  #Tiempo de muestreo
 
 if __name__ == "__main__":
+    
     usbports = ['/dev/ttyUSB0', '/dev/ttyUSB1']
 
     try:
         sensor1 = serial.Serial(usbports[0], 9600, timeout=0)
     except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[0], e))
+        print("Error al abrir el puerto serial {}: {}".format(usbports[0], e))
         sys.exit(1)
 
     try:
         sensor2 = serial.Serial(usbports[1], 9600, timeout=0)
     except serial.SerialException as e:
-        print("Error opening serial port {}: {}".format(usbports[1], e))
+        print("Error al abrir el puerto serial {}: {}".format(usbports[1], e))
         sys.exit(1)
 
     poll_sensors(sensor1, sensor2, usbports[0], usbports[1])
