@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+import config
 from pathlib import Path
 from tkinter import *
 from tkinter import messagebox
@@ -18,17 +20,17 @@ import graficarsmall as graficar
 import Formula
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/Homescreen/build/assets/smallframe0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Desktop/Tesis/Code/GUI/Homescreen/build/assets/smallframe0")
 	
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 	
 #Database connection
 mysql_db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Pa$$w0rd",
-    database="Sensores"
+    host = config.DB_HOST,
+    user = config.DB_USER,
+    password = config.DB_PASSWORD,
+    database = config.DB_NAME
 )
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
@@ -421,10 +423,10 @@ if __name__ == "__main__":
         canvas_intervalos.itemconfig(tagOrId=pHText_intervalos, text=f"pH: {pHValor_intervalos:.4f}")
 
         conductividadValor_intervalos = mediciones_intervalos['conductividad_electrica']
-        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=conductividadText_intervalos, text=f"Conductividad: {conductividadValor_intervalos:.4f} µS/cm")
 
         temperaturaValor_intervalos = mediciones_intervalos['temperatura']
-        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f}")
+        canvas_intervalos.itemconfig(tagOrId=temperaturaText_intervalos, text=f"Temperatura: {temperaturaValor_intervalos:.4f} ºC")
 
         indice_intervalos = mediciones_intervalos['indice']
         canvas_intervalos.itemconfig(tagOrId=indiceText_intervalos, text=f"Índice de Calidad de Agua: {indice_intervalos:.4f}")
@@ -759,10 +761,10 @@ if __name__ == "__main__":
         canvasContinua.itemconfig(tagOrId=pHText_continua, text=f"pH: {pHValor_continua:.4f}")
 
         conductividadValor_continua = mediciones_continua['conductividad_electrica']
-        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=conductividadText_continua, text=f"Conductividad: {conductividadValor_continua:.4f} µS/cm")
 
         temperaturaValor_continua = mediciones_continua['temperatura']
-        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.4f}")
+        canvasContinua.itemconfig(tagOrId=temperaturaText_continua, text=f"Temperatura: {temperaturaValor_continua:.4f} ºC")
 
         indice_continua = mediciones_continua['indice']
         canvasContinua.itemconfig(tagOrId=indiceText_continua, text=f"Índice de Calidad de Agua: {indice_continua:.4f}")
@@ -1085,10 +1087,10 @@ if __name__ == "__main__":
 
 
         conductividadValor_puntual = mediciones_puntual['conductividad_electrica']
-        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.4f}")
+        canvasPuntual.itemconfig(tagOrId=conductividadText_puntual, text=f"Conductividad: {conductividadValor_puntual:.4f} µS/cm")
 
         temperaturaValor_puntual = mediciones_puntual['temperatura']
-        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.4f}")
+        canvasPuntual.itemconfig(tagOrId=temperaturaText_puntual, text=f"Temperatura: {temperaturaValor_puntual:.4f} ºC")
 
         indice_puntual = mediciones_puntual['indice']
         canvasPuntual.itemconfig(tagOrId=indiceText_puntual, text=f"Índice de Calidad de Agua: {indice_puntual:.4f}")
