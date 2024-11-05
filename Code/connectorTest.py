@@ -1,12 +1,14 @@
+
 #Script to test the python-databse connection
+import config
 import mysql.connector
 from datetime import datetime
 
 mysql_db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Pa$$w0rd",
-    database="Sensores"
+    host = config.DB_HOST,
+    user = config.DB_USER,
+    password = config.DB_PASSWORD,
+    database = config.DB_NAME
 )
 print(mysql_db)
 # Create a cursor object to execute SQL queries
