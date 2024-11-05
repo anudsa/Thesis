@@ -1,3 +1,5 @@
+
+import config
 import serial
 import sys
 import time
@@ -13,17 +15,17 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import threading
 #Path para la gui es establecido
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Tesis/Thesis/Code/GUI/build/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"/home/pi/Desktop/Tesis/Code/GUI/Homescreen/build/assets/frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 #Database connection
 mysql_db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Pa$$w0rd",
-    database="Sensores"
+    host = config.DB_HOST,
+    user = config.DB_USER,
+    password = config.DB_PASSWORD,
+    database = config.DB_NAME
 )
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
