@@ -1,10 +1,11 @@
+import config
 import mysql.connector
 #Database connection
 mysql_db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Pa$$w0rd",
-    database="Sensores"
+    host = config.DB_HOST,
+    user = config.DB_USER,
+    password = config.DB_PASSWORD,
+    database = config.DB_NAME
 )
 # Create a cursor object to execute SQL queries
 cursor = mysql_db.cursor()
