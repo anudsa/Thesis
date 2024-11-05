@@ -1,3 +1,5 @@
+
+import config
 import pandas as pd
 from sqlalchemy import create_engine
 from datetime import datetime
@@ -6,7 +8,7 @@ import matplotlib.pyplot as plt
 
 def graphData(id_inicial, id_final):
     #Crea el motor de SQLAlchemy
-    engine = create_engine('mysql+mysqlconnector://root:Pa$$w0rd@localhost/Sensores')
+    engine = create_engine(f"mysql+mysqlconnector://{config.DB_USER}:{config.DB_PASSWORD}@{config.DB_HOST}/{config.DB_NAME}")
 
     #Construye la consulta SQL con el rango de IDs
     consulta_sql = f"SELECT * FROM lecturas WHERE id BETWEEN {id_inicial} AND {id_final}"
